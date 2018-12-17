@@ -1,10 +1,13 @@
 package com.example.springboot.controller;
 
+import com.example.springboot.entity.SortInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Random;
 
 /**
  * @title:
@@ -13,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @date: 2018/11/9
  */
 @RestController
-@RequestMapping("/api/test")
+@RequestMapping("/test")
 public class TestController extends BaseController{
 
     private Logger logger = LoggerFactory.getLogger(TestController.class);
@@ -25,9 +28,13 @@ public class TestController extends BaseController{
      */
     @ApiOperation("获取所有分类信息")
     @GetMapping("/getSortList")
-    public String getSortList() {
+    public SortInfo getSortList() {
         logger.info("getSortList");
-        return null;
+        SortInfo sortInfo = new SortInfo();
+        sortInfo.setId(new Random().nextLong());
+        sortInfo.setName("sortName");
+        sortInfo.setIsEffective(true);
+        return sortInfo;
     }
 
     /**
@@ -37,8 +44,8 @@ public class TestController extends BaseController{
      * @return
      */
     @ApiOperation("获取某一条分类信息")
-    @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long")
-    @GetMapping("/{id}")
+    @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long", example = "0")
+    @GetMapping("/getSortInfoById/{id}")
     public String getSortInfoById(@PathVariable Long id) {
         logger.info("getSortInfoById id = " + id);
         return null;
@@ -50,11 +57,10 @@ public class TestController extends BaseController{
      * @return
      */
     @ApiOperation("增加分类信息")
-    @ApiImplicitParam(name = "name", value = "分类名称", required = true, dataType = "String")
     @PostMapping("/addSortInfo")
-    public String addSortInfo(String name) {
-        logger.info("addSortInfo name = " + name);
-        return null;
+    public SortInfo addSortInfo(SortInfo sortInfo) {
+        logger.info("addSortInfo : " + sortInfo.toString());
+        return sortInfo;
     }
 
     /**
@@ -64,8 +70,8 @@ public class TestController extends BaseController{
      * @return
      */
     @ApiOperation("更新/编辑分类信息")
-    @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long")
-    @PutMapping("/{id}")
+    @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long", example = "0")
+    @PutMapping("/updateSortInfo/{id}")
     public String updateSortInfo(@PathVariable Long id) {
         logger.info("updateSortInfo id = " + id);
         return null;
@@ -78,8 +84,8 @@ public class TestController extends BaseController{
      * @return
      */
     @ApiOperation("删除分类信息")
-    @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long")
-    @DeleteMapping("/{id}")
+    @ApiImplicitParam(name = "id", value = "分类ID", required = true, dataType = "Long", example = "0")
+    @DeleteMapping("/deleteSortInfo/{id}")
     public String deleteSortInfo(@PathVariable Long id) {
         logger.info("deleteSortInfo id = " + id);
         return null;

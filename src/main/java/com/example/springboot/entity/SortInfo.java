@@ -140,4 +140,16 @@ public class SortInfo {
     public void setIsEffective(Boolean isEffective) {
         this.isEffective = isEffective;
     }
+
+    @Override
+    public String toString() {
+        return "SortInfo{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", number=" + number +
+                ", createBy=" + createBy +
+                ", modifiedBy=" + modifiedBy +
+                ", isEffective=" + isEffective +
+                '}';
+    }
 }
