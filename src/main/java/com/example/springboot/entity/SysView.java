@@ -5,8 +5,6 @@ import javax.persistence.*;
 
 @Table(name = "sys_view")
 public class SysView {
-    @Id
-    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     /**

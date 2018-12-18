@@ -20,7 +20,7 @@ import java.util.List;
 public class MybatisGenerator {
 
     public static void main(String[] args) throws Exception {
-        String today = "2018-12-16 19:50";
+        String today = "2018-12-19 19:50";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date now = sdf.parse(today);
@@ -33,8 +33,6 @@ public class MybatisGenerator {
             return;
         }
 
-        if (false)
-            return;
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
         InputStream is = MybatisGenerator.class.getClassLoader().getResource("generatorConfig.xml").openStream();

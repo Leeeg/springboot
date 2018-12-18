@@ -7,11 +7,11 @@
     <!--加载配置文件，为下面读取数据库信息准备-->
     <properties resource="application.properties"/>
 
-    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+    <context id="default" targetRuntime="MyBatis3" defaultModelType="flat">
 
         <!--用来指定通用Mapper对应的文件，这样我们生成的mapper都会继承这个通用Mapper-->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.example.springboot.util.MyMapper" />
+            <property name="mappers" value="com.example.springboot.util.MyMapper"/>
             <!--caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true-->
             <!--<property name="caseSensitive" value="true"/>-->
         </plugin>
@@ -27,9 +27,9 @@
 
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/ssm?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=UTF-8"
-                        userId="root"
-                        password="123456">
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
         </jdbcConnection>
 
         <!--生成pojo类存放位置-->
@@ -45,75 +45,40 @@
 
         <!--生成mapper类存放位置-->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.springboot.dao" targetProject="src/main/java">
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
             <property name="enableSubPackages" value="true"/>
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="true"/>
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
+            <property name="trimStrings" value="true"/>
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
         </javaClientGenerator>
 
         <!--生成对应表及类名-->
-        <table tableName="sys_log" domainObjectName="SysLog" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <!--使用自增长键-->
-            <property name="my.isgen.usekeys" value="true"/>
-            <!--使用数据库中实际的字段名作为生成的实体类的属性-->
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <table tableName="sys_log">
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </table>
-        <table tableName="sys_view" domainObjectName="SysView" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="my.isgen.usekeys" value="true"/>
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <table tableName="sys_view">
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </table>
-        <table tableName="tbl_article_content" domainObjectName="ArticleContent" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="my.isgen.usekeys" value="true"/>
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <table tableName="tbl_article_content">
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </table>
-        <table tableName="tbl_article_info" domainObjectName="ArticleInfo" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="my.isgen.usekeys" value="true"/>
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <table tableName="tbl_article_info">
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </table>
-        <table tableName="tbl_article_message" domainObjectName="ArticleMessage" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="my.isgen.usekeys" value="true"/>
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <table tableName="tbl_article_message">
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </table>
-        <table tableName="tbl_message" domainObjectName="Message" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="my.isgen.usekeys" value="true"/>
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <table tableName="tbl_message">
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </table>
-        <table tableName="tbl_sort_info" domainObjectName="SortInfo" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="my.isgen.usekeys" value="true"/>
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <table tableName="tbl_sort_info">
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </table>
-        <table tableName="tbl_article_sort" domainObjectName="ArticleSort" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true"
-               selectByExampleQueryId="false">
-            <property name="my.isgen.usekeys" value="true"/>
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="id" sqlStatement="JDBC"/>
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR" />
+        <table tableName="tbl_article_sort">
+            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
         </table>
 
     </context>

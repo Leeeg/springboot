@@ -4,12 +4,10 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_article_info")
-public class ArticleInfo {
+public class TblArticleInfo {
     /**
      * 主键
      */
-    @Id
-    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     /**

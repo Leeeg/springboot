@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.springboot.dao.SysViewMapper">
-  <resultMap id="BaseResultMap" type="com.example.springboot.entity.SysView">
+<mapper namespace="com.example.springboot.dao.TblArticleContentMapper">
+  <resultMap id="BaseResultMap" type="com.example.springboot.entity.TblArticleContent">
     <!--
       WARNING - @mbg.generated
     -->
     <result column="id" jdbcType="BIGINT" property="id" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="article_id" jdbcType="BIGINT" property="articleId" />
     <result column="create_by" jdbcType="TIMESTAMP" property="createBy" />
+    <result column="modifield_by" jdbcType="TIMESTAMP" property="modifieldBy" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -77,9 +79,9 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, ip, create_by
+    id, content, article_id, create_by, modifield_by
   </sql>
-  <select id="selectByExample" parameterType="com.example.springboot.entity.SysViewExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.example.springboot.entity.TblArticleContentExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
     -->
@@ -88,7 +90,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from sys_view
+    from tbl_article_content
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -96,20 +98,20 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.example.springboot.entity.SysViewExample">
+  <delete id="deleteByExample" parameterType="com.example.springboot.entity.TblArticleContentExample">
     <!--
       WARNING - @mbg.generated
     -->
-    delete from sys_view
+    delete from tbl_article_content
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <select id="countByExample" parameterType="com.example.springboot.entity.SysViewExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.example.springboot.entity.TblArticleContentExample" resultType="java.lang.Long">
     <!--
       WARNING - @mbg.generated
     -->
-    select count(*) from sys_view
+    select count(*) from tbl_article_content
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -118,16 +120,22 @@
     <!--
       WARNING - @mbg.generated
     -->
-    update sys_view
+    update tbl_article_content
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.ip != null">
-        ip = #{record.ip,jdbcType=VARCHAR},
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleId != null">
+        article_id = #{record.articleId,jdbcType=BIGINT},
       </if>
       <if test="record.createBy != null">
         create_by = #{record.createBy,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifieldBy != null">
+        modifield_by = #{record.modifieldBy,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -138,10 +146,12 @@
     <!--
       WARNING - @mbg.generated
     -->
-    update sys_view
+    update tbl_article_content
     set id = #{record.id,jdbcType=BIGINT},
-      ip = #{record.ip,jdbcType=VARCHAR},
-      create_by = #{record.createBy,jdbcType=TIMESTAMP}
+      content = #{record.content,jdbcType=VARCHAR},
+      article_id = #{record.articleId,jdbcType=BIGINT},
+      create_by = #{record.createBy,jdbcType=TIMESTAMP},
+      modifield_by = #{record.modifieldBy,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

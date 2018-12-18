@@ -4,9 +4,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_article_sort")
-public class ArticleSort {
-    @Id
-    @GeneratedValue(generator = "JDBC")
+public class TblArticleSort {
     private Long id;
 
     /**

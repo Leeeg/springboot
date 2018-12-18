@@ -8,8 +8,6 @@ public class SysLog {
     /**
      * 主键
      */
-    @Id
-    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     /**

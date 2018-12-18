@@ -1,8 +1,5 @@
 package com.example.springboot.interceptor;
 
-import com.example.springboot.entity.SysLog;
-import com.example.springboot.entity.SysView;
-import com.example.springboot.service.ex.SysService;
 import com.example.springboot.util.BrowserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -22,11 +19,12 @@ import java.lang.reflect.Method;
  * @describe: 用于做访问记录的拦截器
  */
 public class ForeInterceptor implements HandlerInterceptor {
-    @Autowired
-    SysService sysService;
 
-    private SysLog sysLog = new SysLog();
-    private SysView sysView = new SysView();
+    @Autowired
+//    SysService sysService;
+
+//    private SysLog sysLog = new SysLog();
+//    private SysView sysView = new SysView();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -39,13 +37,13 @@ public class ForeInterceptor implements HandlerInterceptor {
         String userbrowser = BrowserUtil.getOsAndBrowserInfo(request);
 
         // 给SysLog增加字段
-        sysLog.setIp(StringUtils.isEmpty(ip) ? "0.0.0.0" : ip);
-        sysLog.setOperateBy(StringUtils.isEmpty(userbrowser) ? "获取浏览器名失败" : userbrowser);
-        sysLog.setOperateUrl(StringUtils.isEmpty(url) ? "获取URL失败" : url);
+//        sysLog.setIp(StringUtils.isEmpty(ip) ? "0.0.0.0" : ip);
+//        sysLog.setOperateBy(StringUtils.isEmpty(userbrowser) ? "获取浏览器名失败" : userbrowser);
+//        sysLog.setOperateUrl(StringUtils.isEmpty(url) ? "获取URL失败" : url);
 
-        // 增加访问量
-        sysView.setIp(StringUtils.isEmpty(ip) ? "0.0.0.0" : ip);
-        sysService.addView(sysView);
+//        // 增加访问量
+//        sysView.setIp(StringUtils.isEmpty(ip) ? "0.0.0.0" : ip);
+//        sysService.addView(sysView);
 
         return true;
     }
@@ -56,8 +54,8 @@ public class ForeInterceptor implements HandlerInterceptor {
         Method method = handlerMethod.getMethod();
 
         // 保存日志信息
-        sysLog.setRemark(method.getName());
-        sysService.addLog(sysLog);
+//        sysLog.setRemark(method.getName());
+//        sysService.addLog(sysLog);
     }
 
     @Override

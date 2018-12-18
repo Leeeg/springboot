@@ -4,12 +4,10 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_message")
-public class Message {
+public class TblMessage {
     /**
      * 主键
      */
-    @Id
-    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     /**

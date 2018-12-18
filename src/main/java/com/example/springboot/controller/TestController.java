@@ -1,6 +1,5 @@
 package com.example.springboot.controller;
 
-import com.example.springboot.entity.SortInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -26,16 +25,16 @@ public class TestController extends BaseController{
      *
      * @return
      */
-    @ApiOperation("获取所有分类信息")
-    @GetMapping("/getSortList")
-    public SortInfo getSortList() {
-        logger.info("getSortList");
-        SortInfo sortInfo = new SortInfo();
-        sortInfo.setId(new Random().nextLong());
-        sortInfo.setName("sortName");
-        sortInfo.setIsEffective(true);
-        return sortInfo;
-    }
+//    @ApiOperation("获取所有分类信息")
+//    @GetMapping("/getSortList")
+//    public SortInfo getSortList() {
+//        logger.info("getSortList");
+//        SortInfo sortInfo = new SortInfo();
+//        sortInfo.setId(new Random().nextLong());
+//        sortInfo.setName("sortName");
+//        sortInfo.setIsEffective(true);
+//        return sortInfo;
+//    }
 
     /**
      * 通过id获取一条分类信息
@@ -56,12 +55,12 @@ public class TestController extends BaseController{
      *
      * @return
      */
-    @ApiOperation("增加分类信息")
-    @PostMapping("/addSortInfo")
-    public SortInfo addSortInfo(SortInfo sortInfo) {
-        logger.info("addSortInfo : " + sortInfo.toString());
-        return sortInfo;
-    }
+//    @ApiOperation("增加分类信息")
+//    @PostMapping("/addSortInfo")
+//    public SortInfo addSortInfo(SortInfo sortInfo) {
+//        logger.info("addSortInfo : " + sortInfo.toString());
+//        return sortInfo;
+//    }
 
     /**
      * 更新/编辑一条数据

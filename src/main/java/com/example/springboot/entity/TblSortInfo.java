@@ -4,9 +4,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_sort_info")
-public class SortInfo {
-    @Id
-    @GeneratedValue(generator = "JDBC")
+public class TblSortInfo {
     private Long id;
 
     /**
@@ -139,17 +137,5 @@ public class SortInfo {
      */
     public void setIsEffective(Boolean isEffective) {
         this.isEffective = isEffective;
-    }
-
-    @Override
-    public String toString() {
-        return "SortInfo{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", number=" + number +
-                ", createBy=" + createBy +
-                ", modifiedBy=" + modifiedBy +
-                ", isEffective=" + isEffective +
-                '}';
     }
 }

@@ -4,9 +4,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_article_message")
-public class ArticleMessage {
-    @Id
-    @GeneratedValue(generator = "JDBC")
+public class TblArticleMessage {
     private Long id;
 
     /**
