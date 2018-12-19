@@ -98,5 +98,19 @@
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
+
+        <!--<table tableName="v_account" domainObjectName="Account">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="v_notes" domainObjectName="Notes">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="v_notes_account" domainObjectName="NotesToAccount">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="v_visit_log" domainObjectName="VisitLog">-->
+        <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+
     </context>
 </generatorConfiguration>

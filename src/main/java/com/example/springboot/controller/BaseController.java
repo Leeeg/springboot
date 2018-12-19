@@ -6,6 +6,6 @@ package com.example.springboot.controller;
  * @author:Lee
  * @date: 2018/12/16
  */
-public class BaseController {
+public abstract class BaseController {
 
 }

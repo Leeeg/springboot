@@ -1,4 +1,4 @@
-package com.example.springboot.common.model;
+package com.example.springboot.dto;
 
 /**
  * @title:

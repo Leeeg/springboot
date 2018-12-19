@@ -1,4 +1,4 @@
-package com.example.springboot.util;
+package com.example.springboot.util.result;
 
 import javax.servlet.http.HttpServletRequest;
 

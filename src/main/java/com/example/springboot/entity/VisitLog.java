@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "sys_log")
-public class SystemLog implements Serializable {
+@Table(name = "v_visit_log")
+public class VisitLog implements Serializable {
     /**
      * 主键
      */
@@ -20,8 +20,7 @@ public class SystemLog implements Serializable {
     /**
      * 操作时间
      */
-    @Column(name = "create_by")
-    private Date createBy;
+    private Date time;
 
     /**
      * 操作内容
@@ -37,8 +36,7 @@ public class SystemLog implements Serializable {
     /**
      * 操作的浏览器
      */
-    @Column(name = "operate_by")
-    private String operateBy;
+    private String browser;
 
     private static final long serialVersionUID = 1L;
 
@@ -81,19 +79,19 @@ public class SystemLog implements Serializable {
     /**
      * 获取操作时间
      *
-     * @return create_by - 操作时间
+     * @return time - 操作时间
      */
-    public Date getCreateBy() {
-        return createBy;
+    public Date getTime() {
+        return time;
     }
 
     /**
      * 设置操作时间
      *
-     * @param createBy 操作时间
+     * @param time 操作时间
      */
-    public void setCreateBy(Date createBy) {
-        this.createBy = createBy;
+    public void setTime(Date time) {
+        this.time = time;
     }
 
     /**
@@ -135,19 +133,19 @@ public class SystemLog implements Serializable {
     /**
      * 获取操作的浏览器
      *
-     * @return operate_by - 操作的浏览器
+     * @return browser - 操作的浏览器
      */
-    public String getOperateBy() {
-        return operateBy;
+    public String getBrowser() {
+        return browser;
     }
 
     /**
      * 设置操作的浏览器
      *
-     * @param operateBy 操作的浏览器
+     * @param browser 操作的浏览器
      */
-    public void setOperateBy(String operateBy) {
-        this.operateBy = operateBy == null ? null : operateBy.trim();
+    public void setBrowser(String browser) {
+        this.browser = browser == null ? null : browser.trim();
     }
 
     @Override
@@ -158,10 +156,10 @@ public class SystemLog implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", ip=").append(ip);
-        sb.append(", createBy=").append(createBy);
+        sb.append(", time=").append(time);
         sb.append(", remark=").append(remark);
         sb.append(", operateUrl=").append(operateUrl);
-        sb.append(", operateBy=").append(operateBy);
+        sb.append(", browser=").append(browser);
         sb.append("]");
         return sb.toString();
     }

@@ -1,6 +1,4 @@
-package com.example.springboot.util;
-
-import com.example.springboot.common.model.ResultModel;
+package com.example.springboot.util.result;
 
 import java.util.Map;
 

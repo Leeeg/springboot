@@ -11,6 +11,7 @@ import java.util.List;
  * @author:Lee
  * @date: 2018/12/16
  */
+
 public abstract class BaseService<T> implements IService<T> {
 
     @Autowired

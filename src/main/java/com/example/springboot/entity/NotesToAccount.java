@@ -1,24 +1,24 @@
 package com.example.springboot.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "sys_view")
-public class SystemView implements Serializable {
+@Table(name = "v_notes_account")
+public class NotesToAccount implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
-     * 访问IP
+     * 笔记Id
      */
-    private String ip;
+    @Column(name = "note_id")
+    private Long noteId;
 
     /**
-     * 访问时间
+     * 用户Id
      */
-    @Column(name = "create_by")
-    private Date createBy;
+    @Column(name = "note_author_id")
+    private Long noteAuthorId;
 
     private static final long serialVersionUID = 1L;
 
@@ -37,39 +37,39 @@ public class SystemView implements Serializable {
     }
 
     /**
-     * 获取访问IP
+     * 获取笔记Id
      *
-     * @return ip - 访问IP
+     * @return note_id - 笔记Id
      */
-    public String getIp() {
-        return ip;
+    public Long getNoteId() {
+        return noteId;
     }
 
     /**
-     * 设置访问IP
+     * 设置笔记Id
      *
-     * @param ip 访问IP
+     * @param noteId 笔记Id
      */
-    public void setIp(String ip) {
-        this.ip = ip == null ? null : ip.trim();
+    public void setNoteId(Long noteId) {
+        this.noteId = noteId;
     }
 
     /**
-     * 获取访问时间
+     * 获取用户Id
      *
-     * @return create_by - 访问时间
+     * @return note_author_id - 用户Id
      */
-    public Date getCreateBy() {
-        return createBy;
+    public Long getNoteAuthorId() {
+        return noteAuthorId;
     }
 
     /**
-     * 设置访问时间
+     * 设置用户Id
      *
-     * @param createBy 访问时间
+     * @param noteAuthorId 用户Id
      */
-    public void setCreateBy(Date createBy) {
-        this.createBy = createBy;
+    public void setNoteAuthorId(Long noteAuthorId) {
+        this.noteAuthorId = noteAuthorId;
     }
 
     @Override
@@ -79,8 +79,8 @@ public class SystemView implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", ip=").append(ip);
-        sb.append(", createBy=").append(createBy);
+        sb.append(", noteId=").append(noteId);
+        sb.append(", noteAuthorId=").append(noteAuthorId);
         sb.append("]");
         return sb.toString();
     }

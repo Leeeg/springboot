@@ -1,6 +1,6 @@
 package com.example.springboot.interceptor;
 
-import com.example.springboot.common.model.User;
+import com.example.springboot.dto.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;

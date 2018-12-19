@@ -1,8 +1,13 @@
 package com.example.springboot.interceptor;
 
-import com.example.springboot.util.BrowserUtil;
+import com.alibaba.druid.util.StringUtils;
+import com.example.springboot.controller.NotesController;
+import com.example.springboot.entity.VisitLog;
+import com.example.springboot.service.VisitService;
+import com.example.springboot.util.result.BrowserUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,30 +25,33 @@ import java.lang.reflect.Method;
  */
 public class ForeInterceptor implements HandlerInterceptor {
 
-//    @Autowired
-//    SysService sysService;
+    private Logger logger = LoggerFactory.getLogger(NotesController.class);
 
-//    private SysLog sysLog = new SysLog();
-//    private SysView sysView = new SysView();
+    @Autowired
+    VisitService visitService;
+
+    private VisitLog visitLog = new VisitLog();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         // 访问者的IP
         String ip = request.getRemoteAddr();
+        logger.info(ip);
         // 访问地址
         String url = request.getRequestURL().toString();
+        logger.info(url);
         //得到用户的浏览器名
-        String userbrowser = BrowserUtil.getOsAndBrowserInfo(request);
+        String browser = BrowserUtil.getOsAndBrowserInfo(request);
+        logger.info(browser);
 
-        // 给SysLog增加字段
-//        sysLog.setIp(StringUtils.isEmpty(ip) ? "0.0.0.0" : ip);
-//        sysLog.setOperateBy(StringUtils.isEmpty(userbrowser) ? "获取浏览器名失败" : userbrowser);
-//        sysLog.setOperateUrl(StringUtils.isEmpty(url) ? "获取URL失败" : url);
+        visitLog.setIp(StringUtils.isEmpty(ip) ? "0.0.0.0" : ip);
+        visitLog.setBrowser(StringUtils.isEmpty(browser) ? "获取浏览器名失败" : browser);
+        visitLog.setOperateUrl(StringUtils.isEmpty(url) ? "获取URL失败" : url);
 
 //        // 增加访问量
-//        sysView.setIp(StringUtils.isEmpty(ip) ? "0.0.0.0" : ip);
-//        sysService.addView(sysView);
+        visitLog.setIp(StringUtils.isEmpty(ip) ? "0.0.0.0" : ip);
+        visitService.addVisitLog(visitLog);
 
         return true;
     }
@@ -54,8 +62,8 @@ public class ForeInterceptor implements HandlerInterceptor {
         Method method = handlerMethod.getMethod();
 
         // 保存日志信息
-//        sysLog.setRemark(method.getName());
-//        sysService.addLog(sysLog);
+        visitLog.setRemark(method.getName());
+        visitService.addVisitLog(visitLog);
     }
 
     @Override
