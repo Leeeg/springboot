@@ -1,20 +1,30 @@
 package com.example.springboot.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
+@ApiModel(description = "分类信息")
 @Table(name = "tbl_sort_info")
-public class TblSortInfo {
+public class SortInfo implements Serializable {
+
+    @ApiModelProperty(value = "分类ID",name = "id",required = true, example = "0")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
      * 分类名称
      */
+    @ApiModelProperty(value = "分类名字",name = "name",required = true)
     private String name;
 
     /**
      * 该分类下的文章数量
      */
+    @ApiModelProperty(value = "该分类下的文章数量",name = "number",required = true, example = "0")
     private Byte number;
 
     /**
@@ -34,6 +44,8 @@ public class TblSortInfo {
      */
     @Column(name = "is_effective")
     private Boolean isEffective;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @return id
@@ -137,5 +149,21 @@ public class TblSortInfo {
      */
     public void setIsEffective(Boolean isEffective) {
         this.isEffective = isEffective;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", name=").append(name);
+        sb.append(", number=").append(number);
+        sb.append(", createBy=").append(createBy);
+        sb.append(", modifiedBy=").append(modifiedBy);
+        sb.append(", isEffective=").append(isEffective);
+        sb.append("]");
+        return sb.toString();
     }
 }

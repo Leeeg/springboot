@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
  */
 public class ForeInterceptor implements HandlerInterceptor {
 
-    @Autowired
+//    @Autowired
 //    SysService sysService;
 
 //    private SysLog sysLog = new SysLog();

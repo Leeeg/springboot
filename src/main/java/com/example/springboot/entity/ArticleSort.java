@@ -1,10 +1,12 @@
 package com.example.springboot.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_article_sort")
-public class TblArticleSort {
+public class ArticleSort implements Serializable {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -36,6 +38,8 @@ public class TblArticleSort {
      */
     @Column(name = "is_effective")
     private Boolean isEffective;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * @return id
@@ -139,5 +143,21 @@ public class TblArticleSort {
      */
     public void setIsEffective(Boolean isEffective) {
         this.isEffective = isEffective;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", sortId=").append(sortId);
+        sb.append(", articleId=").append(articleId);
+        sb.append(", createBy=").append(createBy);
+        sb.append(", modifiedBy=").append(modifiedBy);
+        sb.append(", isEffective=").append(isEffective);
+        sb.append("]");
+        return sb.toString();
     }
 }

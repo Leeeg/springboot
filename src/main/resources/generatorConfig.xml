@@ -7,14 +7,25 @@
     <!--加载配置文件，为下面读取数据库信息准备-->
     <properties resource="application.properties"/>
 
-    <context id="default" targetRuntime="MyBatis3" defaultModelType="flat">
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`" />
+        <property name="endingDelimiter" value="`" />
 
-        <!--用来指定通用Mapper对应的文件，这样我们生成的mapper都会继承这个通用Mapper-->
-        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.example.springboot.util.MyMapper"/>
+        <!-- 配置通用Mapper的MBG插件相关信息 -->
+        <plugin type="${mapper.plugin}">
+            <property name="mappers" value="${mapper.Mapper}" />
             <!--caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true-->
             <!--<property name="caseSensitive" value="true"/>-->
         </plugin>
+
+        <!-- 生成 JavaBean 对象重写 toString方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <!-- 生成 JavaBean 对象继承 Serializable 类 -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <!-- 生成 JavaBean 对象重写 equals 和 hashCode 方法 -->
+        <!-- <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" /> -->
 
         <!--避免生成重复代码的插件-->
         <plugin type="com.example.springboot.config.OverIsMergeablePlugin"/>
@@ -26,27 +37,33 @@
         </commentGenerator>
 
         <!--数据库链接地址账号密码-->
-        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
                         connectionURL="${spring.datasource.url}"
                         userId="${spring.datasource.username}"
                         password="${spring.datasource.password}">
         </jdbcConnection>
 
         <!--生成pojo类存放位置-->
-        <javaModelGenerator targetPackage="com.example.springboot.entity" targetProject="src/main/java">
-            <property name="enableSubPackages" value="true"/>
+        <javaModelGenerator targetPackage="com.example.springboot.entity"
+                            targetProject="src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <!--<property name="enableSubPackages" value="true"/>-->
+            <!-- 从数据库返回的值被清理前后的空格 -->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!--生成xml映射文件存放位置-->
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
-            <property name="enableSubPackages" value="true"/>
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources">
+            <!--<property name="enableSubPackages" value="true"/>-->
         </sqlMapGenerator>
 
         <!--生成mapper类存放位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.springboot.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.example.springboot.dao"
+                             targetProject="src/main/java">
             <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
-            <property name="enableSubPackages" value="true"/>
+            <!--<property name="enableSubPackages" value="true"/>-->
             <!-- 是否对model添加 构造函数 -->
             <property name="constructorBased" value="true"/>
             <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
@@ -56,29 +73,29 @@
         </javaClientGenerator>
 
         <!--生成对应表及类名-->
-        <table tableName="sys_log">
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <table tableName="sys_log" domainObjectName="SystemLog">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <table tableName="sys_view">
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <table tableName="sys_view" domainObjectName="SystemView">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <table tableName="tbl_article_content">
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <table tableName="tbl_article_content" domainObjectName="ArticleContent">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <table tableName="tbl_article_info">
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <table tableName="tbl_article_info" domainObjectName="ArticleInfo">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <table tableName="tbl_article_message">
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <table tableName="tbl_article_message" domainObjectName="ArticleMessage">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <table tableName="tbl_message">
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <table tableName="tbl_message" domainObjectName="Message">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <table tableName="tbl_sort_info">
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <table tableName="tbl_sort_info" domainObjectName="SortInfo">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <table tableName="tbl_article_sort">
-            <columnOverride column="content" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <table tableName="tbl_article_sort" domainObjectName="ArticleSort">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
 
     </context>

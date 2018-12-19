@@ -1,13 +1,15 @@
 package com.example.springboot.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_article_info")
-public class TblArticleInfo {
+public class ArticleInfo implements Serializable {
     /**
      * 主键
      */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -42,6 +44,8 @@ public class TblArticleInfo {
      */
     @Column(name = "modified_by")
     private Date modifiedBy;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 获取主键
@@ -167,5 +171,22 @@ public class TblArticleInfo {
      */
     public void setModifiedBy(Date modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", title=").append(title);
+        sb.append(", summary=").append(summary);
+        sb.append(", isTop=").append(isTop);
+        sb.append(", traffic=").append(traffic);
+        sb.append(", createBy=").append(createBy);
+        sb.append(", modifiedBy=").append(modifiedBy);
+        sb.append("]");
+        return sb.toString();
     }
 }

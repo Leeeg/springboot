@@ -1,13 +1,13 @@
 package com.example.springboot.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_article_content")
-public class TblArticleContent {
+public class ArticleContent implements Serializable {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String content;
 
     /**
      * 对应文章ID
@@ -27,6 +27,10 @@ public class TblArticleContent {
     @Column(name = "modifield_by")
     private Date modifieldBy;
 
+    private String content;
+
+    private static final long serialVersionUID = 1L;
+
     /**
      * @return id
      */
@@ -39,20 +43,6 @@ public class TblArticleContent {
      */
     public void setId(Long id) {
         this.id = id;
-    }
-
-    /**
-     * @return content
-     */
-    public String getContent() {
-        return content;
-    }
-
-    /**
-     * @param content
-     */
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
     }
 
     /**
@@ -107,5 +97,34 @@ public class TblArticleContent {
      */
     public void setModifieldBy(Date modifieldBy) {
         this.modifieldBy = modifieldBy;
+    }
+
+    /**
+     * @return content
+     */
+    public String getContent() {
+        return content;
+    }
+
+    /**
+     * @param content
+     */
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", articleId=").append(articleId);
+        sb.append(", createBy=").append(createBy);
+        sb.append(", modifieldBy=").append(modifieldBy);
+        sb.append(", content=").append(content);
+        sb.append("]");
+        return sb.toString();
     }
 }

@@ -1,13 +1,15 @@
 package com.example.springboot.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "tbl_message")
-public class TblMessage {
+public class Message implements Serializable {
     /**
      * 主键
      */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -41,6 +43,8 @@ public class TblMessage {
      */
     @Column(name = "is_effective")
     private Boolean isEffective;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 获取主键
@@ -166,5 +170,22 @@ public class TblMessage {
      */
     public void setIsEffective(Boolean isEffective) {
         this.isEffective = isEffective;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", content=").append(content);
+        sb.append(", createBy=").append(createBy);
+        sb.append(", email=").append(email);
+        sb.append(", name=").append(name);
+        sb.append(", ip=").append(ip);
+        sb.append(", isEffective=").append(isEffective);
+        sb.append("]");
+        return sb.toString();
     }
 }

@@ -1,13 +1,15 @@
 package com.example.springboot.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "sys_log")
-public class SysLog {
+public class SystemLog implements Serializable {
     /**
      * 主键
      */
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /**
@@ -37,6 +39,8 @@ public class SysLog {
      */
     @Column(name = "operate_by")
     private String operateBy;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 获取主键
@@ -144,5 +148,21 @@ public class SysLog {
      */
     public void setOperateBy(String operateBy) {
         this.operateBy = operateBy == null ? null : operateBy.trim();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", ip=").append(ip);
+        sb.append(", createBy=").append(createBy);
+        sb.append(", remark=").append(remark);
+        sb.append(", operateUrl=").append(operateUrl);
+        sb.append(", operateBy=").append(operateBy);
+        sb.append("]");
+        return sb.toString();
     }
 }
