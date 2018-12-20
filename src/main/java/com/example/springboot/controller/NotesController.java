@@ -4,6 +4,7 @@ import com.example.springboot.controller.presenter.NotesPresenter;
 import com.example.springboot.dto.Response;
 import com.example.springboot.entity.Notes;
 import com.example.springboot.service.impl.NotesServiceImpl;
+import com.example.springboot.util.DataUtil;
 import com.example.springboot.util.ResponseEnum;
 import com.example.springboot.util.response.ResponseUtil;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -39,7 +41,7 @@ public class NotesController extends BaseController implements NotesPresenter {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "title", value = "文章标题", required = true, dataType = "String"),
             @ApiImplicitParam(name = "content", value = "文章内容", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "isPrivate", value = "是否私有", required = true, dataType = "Boolean", example = "0"),
+            @ApiImplicitParam(name = "isPrivate", value = "是否私有", required = true, dataType = "Boolean"),
             @ApiImplicitParam(name = "type", value = "文章分类", required = true, dataType = "Byte", example = "0")
     })
     @Override
@@ -51,7 +53,11 @@ public class NotesController extends BaseController implements NotesPresenter {
                 + " \ntype = " + type
         );
 
-        int result = notesService.addNote(title, content, isPrivate == null ? false : true, type);
+        if (DataUtil.isEmpty(title, content) || null == isPrivate || type > 2){
+            return ResponseUtil.error(ResponseEnum.PARAMETER_INVALID);
+        }
+
+        int result = notesService.addNote(title, content, isPrivate, type);
         if (0 == result) {
             return ResponseUtil.error(ResponseEnum.INSERT_FAILED);
         }
@@ -66,7 +72,7 @@ public class NotesController extends BaseController implements NotesPresenter {
         logger.info("deleteNotesById : " + Arrays.toString(ids));
         int result = notesService.deleteNotesById(ids);
         if (0 == result) {
-            return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
+            return ResponseUtil.error(ResponseEnum.PARAMETER_INVALID);
         }
         return ResponseUtil.success(null);
     }
@@ -89,7 +95,12 @@ public class NotesController extends BaseController implements NotesPresenter {
                 + " \nisPrivate = " + isPrivate
                 + " \ntype = " + type
         );
-        int result = notesService.updateNote(id, title, content, isPrivate == null ? false : true, type);
+
+        if (DataUtil.isEmpty(title, content) || null == isPrivate || type > 2){
+            return ResponseUtil.error(ResponseEnum.PARAMETER_INVALID);
+        }
+
+        int result = notesService.updateNote(id, title, content, isPrivate, type);
         if (0 == result) {
             return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
         }
