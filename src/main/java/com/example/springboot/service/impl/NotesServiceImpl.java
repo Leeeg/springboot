@@ -4,6 +4,7 @@ import com.example.springboot.dao.NotesMapper;
 import com.example.springboot.entity.Notes;
 import com.example.springboot.service.BaseService;
 import com.example.springboot.service.NotesService;
+import com.example.springboot.util.ResponseEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,14 +57,25 @@ public class NotesServiceImpl extends BaseService<Notes> implements NotesService
         Example example = new Example(Notes.class);
         Example.Criteria criteria = example.createCriteria();
         for (Long id : ids) {
-            criteria.orEqualTo("note_id", id);
+            criteria.orEqualTo("noteId", id);
         }
-        return notesMapper.deleteByExample(criteria);
+        return notesMapper.deleteByExample(example);
     }
 
     @Override
-    public Integer updateNote(String title, String content, Boolean isPrivate, Byte type) {
-        return 0;
+    public Integer updateNote(Long noteId, String title, String content, Boolean isPrivate, Byte type) {
+        Example example = new Example(Notes.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.orEqualTo("noteId", noteId);
+
+        Notes notes = new Notes();
+        notes.setNoteModifiedTime(new Date());
+        notes.setNotePermission(isPrivate);
+        notes.setNoteTitle(title);
+        notes.setNoteContent(content);
+        notes.setNoteType(type);
+        notes.setNoteWords(content.length());
+        return notesMapper.updateByExampleSelective(notes, example);
     }
 
     @Override
@@ -78,7 +90,7 @@ public class NotesServiceImpl extends BaseService<Notes> implements NotesService
         for (Long id : ids) {
             criteria.orEqualTo("noteId", id);
         }
-        return notesMapper.selectByExample(criteria);
+        return notesMapper.selectByExample(example);
     }
 
 }

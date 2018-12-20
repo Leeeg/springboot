@@ -11,15 +11,15 @@ import com.example.springboot.util.ResponseEnum;
  */
 public class ResponseUtil {
 
-    public static Response success(Object o){
+    public static Response success(Object object) {
         Response response = new Response();
         response.setCode(ResponseEnum.SUCCESS.getCode());
         response.setMsg(ResponseEnum.SUCCESS.getMsg());
-        response.setData(o);
+        response.setData(object);
         return response;
     }
 
-    public static Response error(ResponseEnum anEnum){
+    public static Response error(ResponseEnum anEnum) {
         Response response = new Response();
         response.setCode(anEnum.getCode());
         response.setMsg(anEnum.getMsg());

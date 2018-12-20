@@ -16,7 +16,7 @@ public interface NotesService {
 
     Integer deleteNotesById(Long... ids);//通过文章id删除文章
 
-    Integer updateNote(String title, String content, Boolean isPrivate, Byte type);//修改文章
+    Integer updateNote(Long noteId, String title, String content, Boolean isPrivate, Byte type);//修改文章
 
     List<Notes> getAllNotes();//获取全部文章列表
 

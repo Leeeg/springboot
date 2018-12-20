@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Create by lee
@@ -36,10 +37,10 @@ public class NotesController extends BaseController implements NotesPresenter {
     @ApiOperation("创建文章")
     @PostMapping("/addNote")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "title", value = "文章标题", dataType = "String"),
-            @ApiImplicitParam(name = "content", value = "文章内容", dataType = "String"),
-            @ApiImplicitParam(name = "isPrivate", value = "是否私有", dataType = "Boolean"),
-            @ApiImplicitParam(name = "type", value = "文章分类", dataType = "Byte", example = "0")
+            @ApiImplicitParam(name = "title", value = "文章标题", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "content", value = "文章内容", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "isPrivate", value = "是否私有", required = true, dataType = "Boolean", example = "0"),
+            @ApiImplicitParam(name = "type", value = "文章分类", required = true, dataType = "Byte", example = "0")
     })
     @Override
     public Response addNote(String title, String content, Boolean isPrivate, Byte type) {
@@ -50,11 +51,11 @@ public class NotesController extends BaseController implements NotesPresenter {
                 + " \ntype = " + type
         );
 
-        int result = notesService.addNote(title, content, isPrivate, type);
+        int result = notesService.addNote(title, content, isPrivate == null ? false : true, type);
         if (0 == result) {
-            return ResponseUtil.error(ResponseEnum.UNKNOWN_ERROR);
+            return ResponseUtil.error(ResponseEnum.INSERT_FAILED);
         }
-        return ResponseUtil.success("addNote : " + result);
+        return ResponseUtil.success(null);
     }
 
     @ApiOperation("通过文章id删除文章")
@@ -63,28 +64,34 @@ public class NotesController extends BaseController implements NotesPresenter {
     @Override
     public Response deleteNotesById(Long... ids) {
         logger.info("deleteNotesById : " + Arrays.toString(ids));
-        return null;
+        int result = notesService.deleteNotesById(ids);
+        if (0 == result) {
+            return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
+        }
+        return ResponseUtil.success(null);
     }
 
     @ApiOperation("修改文章")
     @PutMapping("/updateNote")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "title", value = "文章标题", dataType = "String"),
-            @ApiImplicitParam(name = "content", value = "文章内容", dataType = "String"),
-            @ApiImplicitParam(name = "isPrivate", value = "是否私有", dataType = "Boolean"),
-            @ApiImplicitParam(name = "type", value = "文章分类", dataType = "Byte", example = "0")
+            @ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "Long", example = "0"),
+            @ApiImplicitParam(name = "title", value = "文章标题", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "content", value = "文章内容", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "isPrivate", value = "是否私有", required = true, dataType = "Boolean"),
+            @ApiImplicitParam(name = "type", value = "文章分类", required = true, dataType = "Byte", example = "0")
     })
     @Override
-    public Response updateNote(String title, String content, Boolean isPrivate, Byte type) {
+    public Response updateNote(Long id, String title, String content, Boolean isPrivate, Byte type) {
         logger.info("addNote : "
+                + " \nid = " + id
                 + " \ntitle = " + title
                 + " \ncontent = " + content
                 + " \nisPrivate = " + isPrivate
                 + " \ntype = " + type
         );
-        int result = notesService.updateNote(title, content, isPrivate, type);
+        int result = notesService.updateNote(id, title, content, isPrivate == null ? false : true, type);
         if (0 == result) {
-            return ResponseUtil.error(ResponseEnum.UNKNOWN_ERROR);
+            return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
         }
         return ResponseUtil.success("update " + result);
     }
@@ -93,7 +100,6 @@ public class NotesController extends BaseController implements NotesPresenter {
     @GetMapping("/getAllNotes")
     @Override
     public Response getAllNotes() {
-
         return ResponseUtil.success(notesService.getAllNotes());
     }
 
@@ -103,7 +109,11 @@ public class NotesController extends BaseController implements NotesPresenter {
     @Override
     public Response getNotesById(@RequestParam Long... ids) {
         logger.info("getNotesById : " + Arrays.toString(ids));
-        return ResponseUtil.success(notesService.getNotesById(ids));
+        List<Notes> notesList = notesService.getNotesById(ids);
+        if (null == notesList || notesList.size() == 0) {
+            return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
+        }
+        return ResponseUtil.success(notesList);
     }
 
 }

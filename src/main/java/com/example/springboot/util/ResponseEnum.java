@@ -12,7 +12,8 @@ public enum ResponseEnum {
     SUCCESS(200,"成功"),
     USER_NOT_EXIST(401,"用户不存在"),
     REQUEST_INVALID(400,"无效请求"),
-    DATA_IS_NULL(201,"数据为空");
+    DATA_IS_NULL(201,"目标不存在"),
+    INSERT_FAILED(501,"添加失败");
 
     private Integer code;
     private String msg;

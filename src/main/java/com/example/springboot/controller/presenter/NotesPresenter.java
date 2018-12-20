@@ -14,7 +14,7 @@ public interface NotesPresenter {
 
     Response deleteNotesById(Long... ids);//通过文章id删除文章
 
-    Response updateNote(String title, String content, Boolean isPrivate, Byte type);//修改文章
+    Response updateNote(Long id, String title, String content, Boolean isPrivate, Byte type);//修改文章
 
     Response getAllNotes();//获取全部文章列表
 
