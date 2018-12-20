@@ -3,7 +3,7 @@ package com.example.springboot.interceptor;
 import com.alibaba.druid.util.StringUtils;
 import com.example.springboot.controller.NotesController;
 import com.example.springboot.entity.VisitLog;
-import com.example.springboot.service.VisitService;
+import com.example.springboot.service.impl.VisitServiceImpl;
 import com.example.springboot.util.result.BrowserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class ForeInterceptor implements HandlerInterceptor {
     private Logger logger = LoggerFactory.getLogger(NotesController.class);
 
     @Autowired
-    VisitService visitService;
+    VisitServiceImpl visitService;
 
     private VisitLog visitLog = new VisitLog();
 

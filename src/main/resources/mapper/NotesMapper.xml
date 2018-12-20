@@ -16,6 +16,12 @@
     <result column="note_reads" jdbcType="INTEGER" property="noteReads" />
     <result column="note_likes" jdbcType="INTEGER" property="noteLikes" />
     <result column="note_permission" jdbcType="BIT" property="notePermission" />
-    <result column="note_type" jdbcType="BIT" property="noteType" />
+    <result column="note_type" jdbcType="TINYINT" property="noteType" />
+    <result column="note_content" jdbcType="LONGVARCHAR" property="noteContent" />
   </resultMap>
+
+  <select id="selectNotesDesc" resultMap="BaseResultMap" parameterType="int" >
+    SELECT * from v_notes order by id DESC limit #{id}
+  </select>
+
 </mapper>

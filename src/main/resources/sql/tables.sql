@@ -196,6 +196,8 @@ CREATE TABLE `v_notes` (
   COMMENT '笔记作者Id == 用户Id',
   `note_title`         varchar(20) NOT NULL
   COMMENT '笔记Title',
+  `note_content`       text        NOT NULL
+  COMMENT '笔记Content',
   `note_author_name`   varchar(20) NOT NULL
   COMMENT '笔记作者Name == 用户Name',
   `note_create_time`   datetime    NOT NULL
@@ -210,7 +212,7 @@ CREATE TABLE `v_notes` (
   COMMENT '笔记喜欢数',
   `note_permission`    tinyint(1)  NOT NULL DEFAULT '0'
   COMMENT '笔记权限 0表示public',
-  `note_type`          tinyint(1)  NOT NULL DEFAULT '0'
+  `note_type`          tinyint(2)  NOT NULL DEFAULT '0'
   COMMENT '笔记类型 0表示个人笔记 1表示技术文档 2表示普通文档',
   PRIMARY KEY (`id`)
 )

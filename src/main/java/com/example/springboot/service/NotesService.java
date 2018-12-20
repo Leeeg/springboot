@@ -1,51 +1,24 @@
 package com.example.springboot.service;
 
-import com.example.springboot.common.NotesEx;
 import com.example.springboot.entity.Notes;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * @Create by lee
  * @emil JefferyLeeeg@gmail.com
- * @Date 18-12-19
- * @Time 下午8:32
+ * @Date 18-12-20
+ * @Time 上午11:40
  */
-@Service
-public class NotesService extends BaseService<Notes> implements NotesEx {
+public interface NotesService {
 
-    Logger logger = LoggerFactory.getLogger(NotesService.class);
+    Integer addNote(String title, String content, Boolean isPrivate, Byte type);//创建文章
 
-    @Autowired
-    NotesService notesService;
+    Integer deleteNotesById(Long... ids);//通过文章id删除文章
 
-    @Override
-    public String addNote(Notes note) {
-        return null;
-    }
+    Integer updateNote(String title, String content, Boolean isPrivate, Byte type);//修改文章
 
-    @Override
-    public String deleteNotesById(Long... ids) {
-        return null;
-    }
+    List<Notes> getAllNotes();//获取全部文章列表
 
-    @Override
-    public String updateNote(Notes note) {
-        return null;
-    }
-
-    @Override
-    public List<Notes> getAllNotes() {
-        return null;
-    }
-
-    @Override
-    public List<Notes> getNotesById(Long... ids) {
-        return null;
-    }
-
+    List<Notes> getNotesById(Long... ids);//通过文章id获取文章信息
 }

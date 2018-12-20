@@ -73,7 +73,13 @@ public class Notes implements Serializable {
      * 笔记类型 0表示个人笔记 1表示技术文档 2表示普通文档
      */
     @Column(name = "note_type")
-    private Boolean noteType;
+    private Byte noteType;
+
+    /**
+     * 笔记Content
+     */
+    @Column(name = "note_content")
+    private String noteContent;
 
     private static final long serialVersionUID = 1L;
 
@@ -276,7 +282,7 @@ public class Notes implements Serializable {
      *
      * @return note_type - 笔记类型 0表示个人笔记 1表示技术文档 2表示普通文档
      */
-    public Boolean getNoteType() {
+    public Byte getNoteType() {
         return noteType;
     }
 
@@ -285,8 +291,26 @@ public class Notes implements Serializable {
      *
      * @param noteType 笔记类型 0表示个人笔记 1表示技术文档 2表示普通文档
      */
-    public void setNoteType(Boolean noteType) {
+    public void setNoteType(Byte noteType) {
         this.noteType = noteType;
+    }
+
+    /**
+     * 获取笔记Content
+     *
+     * @return note_content - 笔记Content
+     */
+    public String getNoteContent() {
+        return noteContent;
+    }
+
+    /**
+     * 设置笔记Content
+     *
+     * @param noteContent 笔记Content
+     */
+    public void setNoteContent(String noteContent) {
+        this.noteContent = noteContent == null ? null : noteContent.trim();
     }
 
     @Override
@@ -307,6 +331,7 @@ public class Notes implements Serializable {
         sb.append(", noteLikes=").append(noteLikes);
         sb.append(", notePermission=").append(notePermission);
         sb.append(", noteType=").append(noteType);
+        sb.append(", noteContent=").append(noteContent);
         sb.append("]");
         return sb.toString();
     }
