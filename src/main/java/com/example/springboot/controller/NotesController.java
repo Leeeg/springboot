@@ -5,6 +5,7 @@ import com.example.springboot.dto.Response;
 import com.example.springboot.entity.Notes;
 import com.example.springboot.service.impl.NotesServiceImpl;
 import com.example.springboot.util.DataUtil;
+import com.example.springboot.util.MarkDownUtil;
 import com.example.springboot.util.ResponseEnum;
 import com.example.springboot.util.response.ResponseUtil;
 import io.swagger.annotations.Api;
@@ -14,7 +15,6 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -124,6 +124,8 @@ public class NotesController extends BaseController implements NotesPresenter {
         if (null == notesList || notesList.size() == 0) {
             return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
         }
+        
+
         return ResponseUtil.success(notesList);
     }
 

@@ -1,9 +1,8 @@
 package com.example.springboot.util;
 
-import org.pegdown.Extensions;
-import org.pegdown.PegDownProcessor;
-
-import java.util.List;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 
 /**
  * @Create by lee
@@ -13,20 +12,11 @@ import java.util.List;
  */
 public class MarkDownUtil {
 
-    private final static PegDownProcessor md = new PegDownProcessor(Extensions.ALL_WITH_OPTIONALS);
-
-    public static String pegDown(String content) {
-        return md.markdownToHtml(content);
+    private static String markDown(String md) {
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(md);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        return renderer.render(document);
     }
-
-//    public String marked(String content) {
-//        //处理@
-//        List<String> users = StrUtil.fetchUsers(content);
-//        for (String user : users) {
-//            content = content.replace("@" + user, "[@" + user + "](/user/" + user + ")");
-//        }
-//        //markdown 转 html 并返回
-//        return Jsoup.clean(MarkdownUtil.pegDown(content), Whitelist.relaxed());
-//    }
 
 }
