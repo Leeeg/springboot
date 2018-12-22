@@ -1,4 +1,4 @@
-package com.example.springboot.config;
+package com.example.springboot.generator;
 
 import org.mybatis.generator.api.GeneratedXmlFile;
 import org.mybatis.generator.api.IntrospectedTable;

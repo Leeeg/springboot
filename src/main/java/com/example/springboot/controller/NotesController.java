@@ -5,7 +5,6 @@ import com.example.springboot.dto.Response;
 import com.example.springboot.entity.Notes;
 import com.example.springboot.service.impl.NotesServiceImpl;
 import com.example.springboot.util.DataUtil;
-import com.example.springboot.util.MarkDownUtil;
 import com.example.springboot.util.ResponseEnum;
 import com.example.springboot.util.response.ResponseUtil;
 import io.swagger.annotations.Api;
@@ -111,6 +110,7 @@ public class NotesController extends BaseController implements NotesPresenter {
     @GetMapping("/getAllNotes")
     @Override
     public Response getAllNotes() {
+        logger.info("getAllNotes  --- " );
         return ResponseUtil.success(notesService.getAllNotes());
     }
 

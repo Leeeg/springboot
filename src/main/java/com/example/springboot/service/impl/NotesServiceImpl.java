@@ -4,7 +4,6 @@ import com.example.springboot.dao.NotesMapper;
 import com.example.springboot.entity.Notes;
 import com.example.springboot.service.BaseService;
 import com.example.springboot.service.NotesService;
-import com.example.springboot.util.ResponseEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

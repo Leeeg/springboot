@@ -9,6 +9,7 @@ import com.example.springboot.util.ResponseEnum;
  * @Date 18-12-20
  * @Time 上午11:00
  */
+@SuppressWarnings("unchecked")
 public class ResponseUtil {
 
     public static Response success(Object object) {
