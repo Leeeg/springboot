@@ -5,6 +5,7 @@ import com.example.springboot.dto.Response;
 import com.example.springboot.entity.Notes;
 import com.example.springboot.service.impl.NotesServiceImpl;
 import com.example.springboot.util.DataUtil;
+import com.example.springboot.util.MarkDownUtil;
 import com.example.springboot.util.ResponseEnum;
 import com.example.springboot.util.response.ResponseUtil;
 import io.swagger.annotations.Api;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * @Create by lee
@@ -52,7 +54,7 @@ public class NotesController extends BaseController implements NotesPresenter {
                 + " \ntype = " + type
         );
 
-        if (DataUtil.isEmpty(title, content) || null == isPrivate || type > 2){
+        if (DataUtil.isEmpty(title, content) || null == isPrivate || type > 2) {
             return ResponseUtil.error(ResponseEnum.PARAMETER_INVALID);
         }
 
@@ -95,7 +97,7 @@ public class NotesController extends BaseController implements NotesPresenter {
                 + " \ntype = " + type
         );
 
-        if (DataUtil.isEmpty(title, content) || null == isPrivate || type > 2){
+        if (DataUtil.isEmpty(title, content) || null == isPrivate || type > 2) {
             return ResponseUtil.error(ResponseEnum.PARAMETER_INVALID);
         }
 
@@ -110,7 +112,7 @@ public class NotesController extends BaseController implements NotesPresenter {
     @GetMapping("/getAllNotes")
     @Override
     public Response getAllNotes() {
-        logger.info("getAllNotes  --- " );
+        logger.info("getAllNotes  --- ");
         return ResponseUtil.success(notesService.getAllNotes());
     }
 
@@ -124,8 +126,12 @@ public class NotesController extends BaseController implements NotesPresenter {
         if (null == notesList || notesList.size() == 0) {
             return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
         }
-        
-
+        IntStream.range(0, notesList.size()).forEach(i -> {
+            String content = notesList.get(i).getNoteContent();
+            if (null != content && !content.isEmpty()) {
+                notesList.get(i).setNoteContent(MarkDownUtil.markDown(content));
+            }
+        });
         return ResponseUtil.success(notesList);
     }
 
