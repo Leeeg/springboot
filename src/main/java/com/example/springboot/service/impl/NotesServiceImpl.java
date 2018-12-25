@@ -5,12 +5,9 @@ import com.example.springboot.entity.Notes;
 import com.example.springboot.service.BaseService;
 import com.example.springboot.service.NotesService;
 import com.example.springboot.util.MarkDownUtil;
-import com.example.springboot.util.ResponseEnum;
-import com.example.springboot.util.response.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -88,7 +85,6 @@ public class NotesServiceImpl extends BaseService<Notes> implements NotesService
     }
 
     @Override
-    @Async("asyncServiceExecutor")
     public List<Notes> getNotesById(Long... ids) {
         Example example = new Example(Notes.class);
         Example.Criteria criteria = example.createCriteria();

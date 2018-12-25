@@ -1,5 +1,6 @@
 package com.example.springboot.controller;
 
+import com.example.springboot.TaskExecutor.AsyncTask;
 import com.example.springboot.controller.presenter.NotesPresenter;
 import com.example.springboot.dto.Response;
 import com.example.springboot.entity.Notes;
@@ -38,6 +39,9 @@ public class NotesController extends BaseController implements NotesPresenter {
 
     @Autowired
     NotesServiceImpl notesService;
+
+    @Autowired
+    AsyncTask asyncTask;
 
     @ApiOperation("创建文章")
     @PostMapping("/addNote")
@@ -124,6 +128,11 @@ public class NotesController extends BaseController implements NotesPresenter {
     @Override
     public Response getNotesById(@RequestParam Long... ids) {
         logger.info("getNotesById : " + Arrays.toString(ids));
+        try {
+            asyncTask.doTask1();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<Notes> notesList = notesService.getNotesById(ids);
         if (null == notesList) {
             return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
