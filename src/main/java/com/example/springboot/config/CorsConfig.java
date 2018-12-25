@@ -5,6 +5,7 @@ package com.example.springboot.config;
  * @gmail jefferyleeeg@gmail.com
  * @author:Lee
  * @date: 2018/12/22
+ * @describe: 跨域配置
  */
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

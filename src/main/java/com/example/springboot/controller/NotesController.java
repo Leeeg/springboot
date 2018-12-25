@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -27,6 +28,7 @@ import java.util.stream.IntStream;
  * @Date 18-12-19
  * @Time 下午5:05
  */
+
 @RestController
 @RequestMapping("/api/notes")
 @Api(value = "/notes", tags = "Notes", description = "文章操作")
@@ -123,15 +125,9 @@ public class NotesController extends BaseController implements NotesPresenter {
     public Response getNotesById(@RequestParam Long... ids) {
         logger.info("getNotesById : " + Arrays.toString(ids));
         List<Notes> notesList = notesService.getNotesById(ids);
-        if (null == notesList || notesList.size() == 0) {
+        if (null == notesList) {
             return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
         }
-        IntStream.range(0, notesList.size()).forEach(i -> {
-            String content = notesList.get(i).getNoteContent();
-            if (null != content && !content.isEmpty()) {
-                notesList.get(i).setNoteContent(MarkDownUtil.markDown(content));
-            }
-        });
         return ResponseUtil.success(notesList);
     }
 

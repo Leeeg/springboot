@@ -4,14 +4,19 @@ import com.example.springboot.dao.NotesMapper;
 import com.example.springboot.entity.Notes;
 import com.example.springboot.service.BaseService;
 import com.example.springboot.service.NotesService;
+import com.example.springboot.util.MarkDownUtil;
+import com.example.springboot.util.ResponseEnum;
+import com.example.springboot.util.response.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * @Create by lee
@@ -83,13 +88,24 @@ public class NotesServiceImpl extends BaseService<Notes> implements NotesService
     }
 
     @Override
+    @Async("asyncServiceExecutor")
     public List<Notes> getNotesById(Long... ids) {
         Example example = new Example(Notes.class);
         Example.Criteria criteria = example.createCriteria();
         for (Long id : ids) {
             criteria.orEqualTo("noteId", id);
         }
-        return notesMapper.selectByExample(example);
+        List<Notes> notesList = notesMapper.selectByExample(example);
+        if (null == notesList || notesList.size() == 0) {
+            return null;
+        }
+        IntStream.range(0, notesList.size()).forEach(i -> {
+            String content = notesList.get(i).getNoteContent();
+            if (null != content && !content.isEmpty()) {
+                notesList.get(i).setNoteContent(MarkDownUtil.markDown(content));
+            }
+        });
+        return notesList;
     }
 
 }
