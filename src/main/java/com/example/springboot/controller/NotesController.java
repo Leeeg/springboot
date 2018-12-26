@@ -134,9 +134,15 @@ public class NotesController extends BaseController implements NotesPresenter {
             e.printStackTrace();
         }
         List<Notes> notesList = notesService.getNotesById(ids);
-        if (null == notesList) {
-            return ResponseUtil.error(ResponseEnum.DATA_IS_NULL);
+        if (null == notesList || notesList.size() == 0) {
+            return null;
         }
+        IntStream.range(0, notesList.size()).forEach(i -> {
+            String content = notesList.get(i).getNoteContent();
+            if (null != content && !content.isEmpty()) {
+                notesList.get(i).setNoteContent(MarkDownUtil.markDown(content));
+            }
+        });
         return ResponseUtil.success(notesList);
     }
 

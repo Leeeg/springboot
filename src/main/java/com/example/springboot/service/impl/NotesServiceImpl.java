@@ -91,17 +91,7 @@ public class NotesServiceImpl extends BaseService<Notes> implements NotesService
         for (Long id : ids) {
             criteria.orEqualTo("noteId", id);
         }
-        List<Notes> notesList = notesMapper.selectByExample(example);
-        if (null == notesList || notesList.size() == 0) {
-            return null;
-        }
-        IntStream.range(0, notesList.size()).forEach(i -> {
-            String content = notesList.get(i).getNoteContent();
-            if (null != content && !content.isEmpty()) {
-                notesList.get(i).setNoteContent(MarkDownUtil.markDown(content));
-            }
-        });
-        return notesList;
+        return notesMapper.selectByExample(example);
     }
 
 }
