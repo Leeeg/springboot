@@ -4,7 +4,7 @@ import com.example.springboot.TaskExecutor.AsyncTask;
 import com.example.springboot.controller.presenter.NotesPresenter;
 import com.example.springboot.dto.Response;
 import com.example.springboot.entity.Notes;
-import com.example.springboot.service.impl.NotesServiceImpl;
+import com.example.springboot.service.impl.BlogsServiceImpl;
 import com.example.springboot.util.DataUtil;
 import com.example.springboot.util.MarkDownUtil;
 import com.example.springboot.util.ResponseEnum;
@@ -16,7 +16,6 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -33,12 +32,12 @@ import java.util.stream.IntStream;
 @RestController
 @RequestMapping("/api/notes")
 @Api(value = "/notes", tags = "Notes", description = "文章操作")
-public class NotesController extends BaseController implements NotesPresenter {
+public class BlogsController extends BaseController implements NotesPresenter {
 
-    Logger logger = LoggerFactory.getLogger(NotesController.class);
+    Logger logger = LoggerFactory.getLogger(BlogsController.class);
 
     @Autowired
-    NotesServiceImpl notesService;
+    BlogsServiceImpl notesService;
 
     @Autowired
     AsyncTask asyncTask;

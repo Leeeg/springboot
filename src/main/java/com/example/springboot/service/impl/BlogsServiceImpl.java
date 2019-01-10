@@ -3,8 +3,7 @@ package com.example.springboot.service.impl;
 import com.example.springboot.dao.NotesMapper;
 import com.example.springboot.entity.Notes;
 import com.example.springboot.service.BaseService;
-import com.example.springboot.service.NotesService;
-import com.example.springboot.util.MarkDownUtil;
+import com.example.springboot.service.BlogsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.IntStream;
 
 /**
  * @Create by lee
@@ -22,9 +20,9 @@ import java.util.stream.IntStream;
  * @Time 下午8:32
  */
 @Service
-public class NotesServiceImpl extends BaseService<Notes> implements NotesService {
+public class BlogsServiceImpl extends BaseService<Notes> implements BlogsService {
 
-    Logger logger = LoggerFactory.getLogger(NotesServiceImpl.class);
+    Logger logger = LoggerFactory.getLogger(BlogsServiceImpl.class);
 
     @Autowired
     NotesMapper notesMapper;

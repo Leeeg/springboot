@@ -1,7 +1,7 @@
 package com.example.springboot.interceptor;
 
 import com.alibaba.druid.util.StringUtils;
-import com.example.springboot.controller.NotesController;
+import com.example.springboot.controller.BlogsController;
 import com.example.springboot.entity.VisitLog;
 import com.example.springboot.service.impl.VisitServiceImpl;
 import com.example.springboot.util.result.BrowserUtil;
@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
  */
 public class ForeInterceptor implements HandlerInterceptor {
 
-    private Logger logger = LoggerFactory.getLogger(NotesController.class);
+    private Logger logger = LoggerFactory.getLogger(BlogsController.class);
 
     @Autowired
     VisitServiceImpl visitService;

@@ -36,7 +36,7 @@ public class MybatisGenerator {
     }
 
     public static void main(String[] args) throws Exception {
-        String today = "2018-12-20 19:50";
+        String today = "2019-01-10 19:50";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date now = sdf.parse(today);

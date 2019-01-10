@@ -191,43 +191,47 @@ CREATE TABLE `v_account` (
 CREATE TABLE `v_notes` (
   `id`                 bigint(64)  NOT NULL AUTO_INCREMENT,
   `note_id`            bigint(64)  NOT NULL
-  COMMENT '笔记Id',
+  COMMENT '文章Id',
   `note_author_id`     bigint(64)  NOT NULL
-  COMMENT '笔记作者Id == 用户Id',
+  COMMENT '文章作者Id == 用户Id',
   `note_title`         varchar(20) NOT NULL
-  COMMENT '笔记Title',
+  COMMENT '文章Title',
   `note_content`       text        NOT NULL
-  COMMENT '笔记Content',
+  COMMENT '文章Content',
   `note_author_name`   varchar(20) NOT NULL
-  COMMENT '笔记作者Name == 用户Name',
+  COMMENT '文章作者Name == 用户Name',
+  `note_describe`   varchar(20) NOT NULL
+  COMMENT '文章描述',
   `note_create_time`   datetime    NOT NULL
-  COMMENT '笔记创建时间',
+  COMMENT '文章创建时间',
   `note_modified_time` datetime    NOT NULL
-  COMMENT '笔记最后修改时间',
+  COMMENT '文章最后修改时间',
   `note_words`         int(32)     NOT NULL
-  COMMENT '笔记字数',
+  COMMENT '文章字数',
   `note_reads`         int(32)     NOT NULL
-  COMMENT '笔记阅读数',
+  COMMENT '文章阅读数',
+  `note_share`         int(32)     NOT NULL
+  COMMENT '文章分享数',
   `note_likes`         int(32)     NOT NULL
-  COMMENT '笔记喜欢数',
+  COMMENT '文章喜欢数',
   `note_permission`    tinyint(1)  NOT NULL DEFAULT '0'
-  COMMENT '笔记权限 0表示public',
+  COMMENT '文章权限 0表示public',
   `note_type`          tinyint(2)  NOT NULL DEFAULT '0'
-  COMMENT '笔记类型 0表示个人笔记 1表示技术文档 2表示普通文档',
+  COMMENT '文章类型 0表示个人文章 1表示技术文档 2表示普通文档',
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8
-  COMMENT = '笔记表';
+  COMMENT = '文章表';
 
 CREATE TABLE `v_notes_account` (
   `id`             bigint(64) NOT NULL AUTO_INCREMENT,
   `note_id`        bigint(64) NOT NULL
-  COMMENT '笔记Id',
+  COMMENT '文章Id',
   `note_author_id` bigint(64) NOT NULL
   COMMENT '用户Id',
   PRIMARY KEY (`id`)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = utf8
-  COMMENT = '笔记对应用户';
+  COMMENT = '文章对应用户';
