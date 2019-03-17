@@ -15,6 +15,8 @@ public class RTP implements Comparable<RTP> {
     private byte[] data;
     private int type;
 
+    private int groupNumber;
+
     public RTP() {
     }
 
@@ -25,12 +27,29 @@ public class RTP implements Comparable<RTP> {
         this.type = type;
     }
 
+    public RTP(Integer seq, long time, byte[] data, int type, int groupNumber) {
+        this.seq = seq;
+        this.time = time;
+        this.data = data;
+        this.type = type;
+        this.groupNumber = groupNumber;
+    }
+
+    public int getGroupNumber() {
+        return groupNumber;
+    }
+
+    public void setGroupNumber(int groupNumber) {
+        this.groupNumber = groupNumber;
+    }
+
     public Integer getSeq() {
         return seq;
     }
 
-    public void setSeq(Integer seq) {
+    public RTP setSeq(Integer seq) {
         this.seq = seq;
+        return this;
     }
 
     public long getTime() {
@@ -45,8 +64,9 @@ public class RTP implements Comparable<RTP> {
         return data;
     }
 
-    public void setData(byte[] data) {
+    public RTP setData(byte[] data) {
         this.data = data;
+        return this;
     }
 
     public int getType() {
@@ -72,7 +92,8 @@ public class RTP implements Comparable<RTP> {
     @Override
     public String toString() {
         return "RTP{" +
-                "seq=" + seq +
+                "groupNumber=" + groupNumber +
+                ", seq=" + seq +
                 ", time=" + time +
                 ", data=" + Arrays.toString(data) +
                 ", type=" + type +

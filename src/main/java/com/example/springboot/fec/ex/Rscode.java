@@ -712,8 +712,8 @@ public class Rscode implements Fec {
         map[4] = 1;
         map[5] = 2;
         map[6] = 3;
-        map[7] = 4;
-        map[8] = -1;
+        map[7] = -1;
+        map[8] = 4;
         byte[][] buffer = new byte[9][10];
         byte[][] rs= rsItem.getRs();
 
@@ -733,9 +733,11 @@ public class Rscode implements Fec {
             buffer[map[6]][l] = rs[6][l];
         }
         for (int l = 0; l < 10; l++) {
-            buffer[map[7]][l] = rs[7][l];
+            buffer[map[8]][l] = rs[8][l];
         }
-
+        for (int i = 0; i < buffer.length; i++) {
+            System.out.println("buffer : " + Arrays.toString(buffer[i]));
+        }
         rsItem.setRs(new byte[9][10]);
         rsItem.decoding(map, buffer);
         byte[][] rstemp=rsItem.getRs();
