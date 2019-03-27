@@ -17,7 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @gmail jefferyleeeg@gmail.com
  * @author:Lee
  * @date: 2018/11/9
- * @url： http://localhost:8080/swagger-ui.htm
+ * @url： http://localhost:8080/swagger-ui.html
  */
 @Configuration
 public class Swagger2Config {

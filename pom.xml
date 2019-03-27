@@ -39,6 +39,9 @@
 
         <integration-stream.version>5.1.1.RELEASE</integration-stream.version>
         <integration-mqtt.version>5.1.1.RELEASE</integration-mqtt.version>
+
+        <protobuf.version>2.6.1</protobuf.version>
+        <protobuf-java-format.version>1.4</protobuf-java-format.version>
     </properties>
 
     <dependencies>
@@ -130,6 +133,21 @@
             <artifactId>spring-integration-mqtt</artifactId>
             <version>${integration-mqtt.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.googlecode.protobuf-java-format/protobuf-java-format -->
+        <dependency>
+            <groupId>com.googlecode.protobuf-java-format</groupId>
+            <artifactId>protobuf-java-format</artifactId>
+            <version>${protobuf-java-format.version}</version>
+        </dependency>
+
+
 
     </dependencies>
 
