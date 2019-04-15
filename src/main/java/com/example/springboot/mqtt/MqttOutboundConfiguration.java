@@ -19,7 +19,7 @@ import org.springframework.messaging.MessageHandler;
  * @Date 19-1-9
  * @Time 下午3:36
  */
-@Configuration
+//@Configuration
 @IntegrationComponentScan
 public class MqttOutboundConfiguration {
 

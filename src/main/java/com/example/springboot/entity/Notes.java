@@ -37,7 +37,7 @@ public class Notes implements Serializable {
      * 文章描述
      */
     @Column(name = "note_describe")
-    private String noteDescribe;
+    private String noteDescribe = "";
 
     /**
      * 文章创建时间

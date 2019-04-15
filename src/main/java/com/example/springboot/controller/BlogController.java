@@ -32,9 +32,9 @@ import java.util.stream.IntStream;
 @RestController
 @RequestMapping("/api/notes")
 @Api(value = "/notes", tags = "Notes", description = "文章操作")
-public class BlogsController extends BaseController implements NotesPresenter {
+public class BlogController extends BaseController implements NotesPresenter {
 
-    Logger logger = LoggerFactory.getLogger(BlogsController.class);
+    Logger logger = LoggerFactory.getLogger(BlogController.class);
 
     @Autowired
     BlogsServiceImpl notesService;

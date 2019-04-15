@@ -20,7 +20,7 @@ import org.springframework.messaging.MessagingException;
  * @Date 19-1-9
  * @Time 下午4:40
  */
-@Configuration
+//@Configuration
 public class MqttInboundConfiguration {
 
     @Autowired
