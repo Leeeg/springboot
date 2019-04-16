@@ -10,7 +10,7 @@ import java.util.List;
  * @Date 18-12-20
  * @Time 上午11:40
  */
-public interface BlogsService {
+public interface BlogService {
 
     Integer addNote(String title, String content, Boolean isPrivate, Byte type);//创建文章
 

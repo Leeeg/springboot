@@ -7,4 +7,8 @@ package com.example.springboot.common;
  * @Time 下午6:19
  */
 public class Container {
+
+    public static final String SMS_HOST = "http://dingxin.market.alicloudapi.com/dx/sendSms";
+    public static final String SMS_APPCODE = "9474d8ae9ac74aeea2fff0f11e5ea335";
+
 }

@@ -4,7 +4,7 @@ import com.example.springboot.TaskExecutor.AsyncTask;
 import com.example.springboot.controller.presenter.NotesPresenter;
 import com.example.springboot.dto.Response;
 import com.example.springboot.entity.Notes;
-import com.example.springboot.service.impl.BlogsServiceImpl;
+import com.example.springboot.service.impl.BlogServiceImpl;
 import com.example.springboot.util.DataUtil;
 import com.example.springboot.util.MarkDownUtil;
 import com.example.springboot.util.ResponseEnum;
@@ -37,7 +37,7 @@ public class BlogController extends BaseController implements NotesPresenter {
     Logger logger = LoggerFactory.getLogger(BlogController.class);
 
     @Autowired
-    BlogsServiceImpl notesService;
+    BlogServiceImpl notesService;
 
     @Autowired
     AsyncTask asyncTask;

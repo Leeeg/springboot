@@ -12,4 +12,6 @@ public interface AccountPresenter {
 
     Response login(String userName, String password);
 
+    Response getCode(String phoneNumber);
+
 }

@@ -3,7 +3,7 @@ package com.example.springboot.service.impl;
 import com.example.springboot.dao.NotesMapper;
 import com.example.springboot.entity.Notes;
 import com.example.springboot.service.BaseService;
-import com.example.springboot.service.BlogsService;
+import com.example.springboot.service.BlogService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,9 @@ import java.util.List;
  * @Time 下午8:32
  */
 @Service
-public class BlogsServiceImpl extends BaseService<Notes> implements BlogsService {
+public class BlogServiceImpl extends BaseService<Notes> implements BlogService {
 
-    Logger logger = LoggerFactory.getLogger(BlogsServiceImpl.class);
+    Logger logger = LoggerFactory.getLogger(BlogServiceImpl.class);
 
     @Autowired
     NotesMapper notesMapper;
