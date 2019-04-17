@@ -8,6 +8,8 @@
     <result column="id" jdbcType="BIGINT" property="id" />
     <result column="account_id" jdbcType="BIGINT" property="accountId" />
     <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="account_phone" jdbcType="VARCHAR" property="accountPhone" />
+    <result column="account_email" jdbcType="VARCHAR" property="accountEmail" />
     <result column="account_sex" jdbcType="BIT" property="accountSex" />
     <result column="account_create_time" jdbcType="TIMESTAMP" property="accountCreateTime" />
     <result column="account_login_time" jdbcType="TIMESTAMP" property="accountLoginTime" />

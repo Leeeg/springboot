@@ -1,4 +1,4 @@
-package com.example.springboot.fec.sort;
+package com.example.springboot.test.fec.sort;
 
 import java.util.Arrays;
 

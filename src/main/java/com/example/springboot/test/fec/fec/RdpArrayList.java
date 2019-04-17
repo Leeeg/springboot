@@ -1,4 +1,4 @@
-package com.example.springboot.fec.fec;
+package com.example.springboot.test.fec.fec;
 
 import java.util.*;
 

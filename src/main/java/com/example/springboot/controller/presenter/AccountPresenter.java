@@ -2,6 +2,8 @@ package com.example.springboot.controller.presenter;
 
 import com.example.springboot.dto.Response;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @Create by lee
  * @emil JefferyLeeeg@gmail.com
@@ -10,8 +12,10 @@ import com.example.springboot.dto.Response;
  */
 public interface AccountPresenter {
 
+    Response register(HttpServletRequest request, String userName, String password, String phone, String code);
+
     Response login(String userName, String password);
 
-    Response getCode(String phoneNumber);
+    Response getCode(HttpServletRequest request, String phoneNumber);
 
 }

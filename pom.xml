@@ -44,6 +44,8 @@
         <protobuf-java-format.version>1.4</protobuf-java-format.version>
 
         <httpclient.version>4.5.5</httpclient.version>
+
+        <fastjson.version>1.2.57</fastjson.version>
     </properties>
 
     <dependencies>
@@ -149,10 +151,18 @@
             <version>${protobuf-java-format.version}</version>
         </dependency>
 
+        <!-- HttpClient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${httpclient.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
 
     </dependencies>

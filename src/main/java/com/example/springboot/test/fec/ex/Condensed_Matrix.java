@@ -1,4 +1,4 @@
-package com.example.springboot.fec.ex;
+package com.example.springboot.test.fec.ex;
 
 class Condensed_Matrix
 {

@@ -1,8 +1,8 @@
-package com.example.springboot.fec.fectest;
+package com.example.springboot.test.fec.fectest;
 
 
-import com.example.springboot.fec.fec.Fec;
-import com.example.springboot.fec.fec.Rscode;
+import com.example.springboot.test.fec.fec.Fec;
+import com.example.springboot.test.fec.fec.Rscode;
 
 public class Fectest {
 

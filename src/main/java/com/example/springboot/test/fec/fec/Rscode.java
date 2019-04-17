@@ -1,25 +1,6 @@
-package com.example.springboot.fec.fec;
+package com.example.springboot.test.fec.fec;
 
 import java.util.*;
-
-import static java.lang.System.out;
-
-enum en {
-    ONE("one one one"), TWO("two two"), THREE("three three");
-    private String des;
-
-    en(String ss) {
-        des = ss;
-    }
-
-    en() {
-        des = "AA";
-    }
-
-    public String getDes() {
-        return des;
-    }
-}
 
 /**
  * Erasure code RDP.Java version
@@ -27,7 +8,7 @@ enum en {
  * @author Roger Song
  *
  */
-public class RsArrayList implements Fec {
+public class Rscode implements Fec {
     // private static final int prim_poly_32 = 020000007;
     // private static final int prim_poly_16 = 0210013;
     private static final int prim_poly_8 = 0435;
@@ -42,17 +23,17 @@ public class RsArrayList implements Fec {
     static int Modar_Iam;
 
     private int num; // original data cols num
-    List<ArrayList<Character>> rs;
+    private char[][] rs; // original data
     private static final int FT_NUM = 2; // default checksum num
     private static int gf_already_setup;
     private int allNum;
     private static final int DATA_LENGTH = 1024; // default stripe size
     private int stripe_unit_size; // stripe size
     private int rsNum;
-
+    // private int[] inthis;
     private BitSet inthis;
 
-    public RsArrayList() {
+    public Rscode() {
         allNum = 6;
         rsNum = FT_NUM;
         num = allNum - rsNum;
@@ -61,17 +42,11 @@ public class RsArrayList implements Fec {
         j_to_b_idx = 0;
 
         // use allnum here, rs includes original data and redudant data
-        // rs = new char[allNum][stripe_unit_size];
-        rs = new ArrayList<ArrayList<Character>>(allNum);
-        for (int i = 0; i < allNum; i++) {
-            ArrayList<Character> tmpList = new ArrayList<Character>(
-                stripe_unit_size);
-            rs.add(tmpList);
-        }
+        rs = new char[allNum][stripe_unit_size];
         inthis = new BitSet();
     }
 
-    public RsArrayList(int allnum, int rsnum, int dataLength) {
+    public Rscode(int allnum, int rsnum, int dataLength) {
         allNum = allnum;
         rsNum = rsnum;
         num = allNum - rsNum;
@@ -80,12 +55,7 @@ public class RsArrayList implements Fec {
         j_to_b_idx = 0;
 
         // use allnum here, rs includes original data and redudant data
-        rs = new ArrayList<ArrayList<Character>>(allNum);
-        for (int i = 0; i < allNum; i++) {
-            ArrayList<Character> tmpList = new ArrayList<Character>(
-                stripe_unit_size);
-            rs.add(tmpList);
-        }
+        rs = new char[allNum][stripe_unit_size];
         inthis = new BitSet();
     }
 
@@ -103,8 +73,7 @@ public class RsArrayList implements Fec {
     public void setData() {
         for (int i = 0; i < num; i++) {
             for (int j = 0; j < stripe_unit_size; j++) {
-                ArrayList<Character> tmpArrayList = rs.get(i);
-                tmpArrayList.add((char) ('a' + i));
+                rs[i][j] = (char) ('a' + i);
             }
         }
     }
@@ -121,7 +90,7 @@ public class RsArrayList implements Fec {
         System.out.println("After decoding:");
         for (int i = 0; i < num; i++) {
             System.out.printf("data:%d:  ", i);
-            System.out.println(rs.get(i));
+            System.out.println(rs[i]);
         }
     }
 
@@ -132,7 +101,7 @@ public class RsArrayList implements Fec {
 
         System.out.print("The res:");
         for (int i = num; i < allNum; i++) {
-            System.out.println(rs.get(i));
+            System.out.println(rs[i]);
         }
     }
 
@@ -162,26 +131,17 @@ public class RsArrayList implements Fec {
         int[] factors;
         int[] vdm;
         int z = rsNum, n = 0;
-
-        List<ArrayList<Character>> buffer;
+        char[][] buffer;
 
         n = num;
         cols = n;
         rows = z + n;
         factors = new int[n];
-
-        buffer = new ArrayList<ArrayList<Character>>(n);
-        for (int i = 0; i < n; i++) {
-            ArrayList<Character> tmpList = new ArrayList<Character>(
-                stripe_unit_size);
-            buffer.add(tmpList);
-        }
+        buffer = new char[n][stripe_unit_size];
 
         for (int i = 0; i < n; i++) {
             for (int l = 0; l < stripe_unit_size; l++) {
-                // buffer.get(i).set(l, (char)rs.get(i).get(l));
-                buffer.get(i).add((char) rs.get(i).get(l));
-                ;
+                buffer[i][l] = rs[i][l];
             }
         }
 
@@ -196,19 +156,14 @@ public class RsArrayList implements Fec {
 
                 int value = 0;
                 for (int c = 0; c < num; c++) {
-                    value ^= multiply((char) vdm[iRow * num + c], rs.get(c)
-                                      .get(iByte));
+                    value ^= multiply((char) vdm[iRow * num + c], rs[c][iByte]);
                 }
-                // rs.get(iRow).set(iByte,(char) value);
-                rs.get(iRow).add((char) value);
+                rs[iRow][iByte] = (char) value;
             }
         }
 
     }
 
-    /**
-     * rs decoding main function. there is a simple testcase in setData func
-     */
     public void decoding() {
         int[] vdm;
         Condensed_Matrix cm;
@@ -217,19 +172,15 @@ public class RsArrayList implements Fec {
         int[] exists;
         int[] factors;
         int[] map;
-        List<ArrayList<Character>> buffer;
+        char[][] buffer;
         int[] id;
         int[] mat;
         int[] inv;
-        List<ArrayList<Character>> buff;
+        char[][] buff = null;
+
         int err = 0;
 
-        buff = new ArrayList<ArrayList<Character>>(allNum);
-        for (int i = 0; i < allNum; i++) {
-            ArrayList<Character> tmpList = new ArrayList<Character>(
-                stripe_unit_size);
-            buff.add(tmpList);
-        }
+        buff = new char[allNum][stripe_unit_size];
 
         m = rsNum;
         n = num;
@@ -237,20 +188,15 @@ public class RsArrayList implements Fec {
         rows = m + n;
         vdm = gf_make_dispersal_matrix(rows, cols);
         exists = new int[rows];
-        factors = new int[rows];
-        map = new int[rows];
 
-        buffer = new ArrayList<ArrayList<Character>>(allNum);
-        for (int i = 0; i < allNum; i++) {
-            ArrayList<Character> tmpList = new ArrayList<Character>(
-                stripe_unit_size);
-            buffer.add(tmpList);
-        }
+        factors = new int[rows];
+
+        map = new int[rows];
+        buffer = new char[allNum][stripe_unit_size];
 
         for (int j = 0; j < (m + n); j++) {
             for (int i = 0; i < stripe_unit_size; i++) {
-                // buff.get(j).set(i, rs.get(j).get(i));
-                buff.get(j).add(rs.get(j).get(i));
+                buff[j][i] = rs[j][i];
             }
         }
 
@@ -261,8 +207,7 @@ public class RsArrayList implements Fec {
             } else {
                 map[i] = err++;
                 for (int l = 0; l < stripe_unit_size; l++) {
-                    // buffer.get(map[i]).set(l, buff.get(i).get(l));
-                    buffer.get(map[i]).add(buff.get(i).get(l));
+                    buffer[map[i]][l] = buff[i][l];
                 }
             }
         }
@@ -280,6 +225,7 @@ public class RsArrayList implements Fec {
             if (map[i] != -1) {
                 exists[i] = 1;
             }
+            // exists[i] = (map[i] != -1);
         }
         cm = gf_condense_dispersal_matrix(vdm, exists, rows, cols);
         mat = cm.condensed_matrix;
@@ -302,10 +248,10 @@ public class RsArrayList implements Fec {
 
                     int value = 0;
                     for (int c = 0; c < num; c++) {
-                        value ^= multiply((char) inv[iRow * num + c], buffer
-                                          .get(map[c]).get(iByte));
+                        value ^= multiply((char) inv[iRow * num + c],
+                                          buffer[map[c]][iByte]);
                     }
-                    rs.get(iRow).set(iByte, (char) value);
+                    rs[iRow][iByte] = (char) value;
                 }
             }
         }
@@ -316,9 +262,6 @@ public class RsArrayList implements Fec {
         return "rs";
     }
 
-    /**
-     * create Galois field. this function just run 1 time
-     */
     void gf_modar_setup() {
         int j, b;
         int res;
@@ -356,6 +299,7 @@ public class RsArrayList implements Fec {
             res = b & 256;
             if (0 != res) {
                 // if (b & 256){
+
                 b = (b ^ prim_poly_8) & 255;
             }
         }
@@ -694,11 +638,12 @@ public class RsArrayList implements Fec {
     public static void main(String[] args) {
         final int NUM = 10;
         System.out.println("starting");
-        // Rscode *rsItem = new Rscode();
+        // rscode *rsItem = new rscode();
 
         // all data is 10, checksum data is 3, data stripe length is 1024
-        RsArrayList rsItem = new RsArrayList(10, 3, 1024);
+        Rscode rsItem = new Rscode(10, 3, 1024);
         // Rscode rsItem = new Rscode();
+
         int[] err = new int[NUM];
 
         // 0 means fault data
@@ -711,13 +656,12 @@ public class RsArrayList implements Fec {
         rsItem.outputData();
 
         // testing 3 errors, error disk sequence number is 0,1,3
-        // err[0]=1;
+        err[0] = 1;
         err[1] = 1;
         err[3] = 1;
         rsItem.setErrData(err);
         rsItem.decoding();
         rsItem.outputOrigin();
-
     }
 
 }

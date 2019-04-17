@@ -1,6 +1,6 @@
-package com.example.springboot.fec.sort;
+package com.example.springboot.test.fec.sort;
 
-import com.example.springboot.fec.ex.Rscode;
+import com.example.springboot.test.fec.ex.Rscode;
 
 import java.util.*;
 import java.util.concurrent.BlockingDeque;

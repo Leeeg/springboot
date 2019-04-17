@@ -94,14 +94,14 @@
         <!--<table tableName="tbl_sort_info" domainObjectName="SortInfo">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
-        <table tableName="tbl_article_sort" domainObjectName="ArticleSort">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-
-
-        <!--<table tableName="v_account" domainObjectName="Account">-->
+        <!--<table tableName="tbl_article_sort" domainObjectName="ArticleSort">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
+
+
+        <table tableName="v_account" domainObjectName="Account">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
         <!--<table tableName="v_notes" domainObjectName="Notes">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->

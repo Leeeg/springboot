@@ -8,6 +8,6 @@ package com.example.springboot.service;
  */
 public interface AccountService {
 
-    Integer getCode(String phoneNumber);
+    Integer getCode(String phoneNumber, String code);
 
 }

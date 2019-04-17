@@ -174,6 +174,10 @@ CREATE TABLE `v_account` (
   COMMENT '用户Id',
   `account_name`        varchar(20)  NOT NULL
   COMMENT '用户Name',
+  `account_phone`       varchar(11)  NOT NULL
+  COMMENT '用户PhoneNumber',
+  `account_email`       varchar(20)  NOT NULL
+  COMMENT '用户Email',
   `account_sex`         tinyint(1)   NOT NULL DEFAULT '0'
   COMMENT '用户性别 0表示女',
   `account_create_time` datetime     NOT NULL
@@ -200,7 +204,7 @@ CREATE TABLE `v_notes` (
   COMMENT '文章Content',
   `note_author_name`   varchar(20) NOT NULL
   COMMENT '文章作者Name == 用户Name',
-  `note_describe`   varchar(20) NOT NULL
+  `note_describe`      varchar(20) NOT NULL
   COMMENT '文章描述',
   `note_create_time`   datetime    NOT NULL
   COMMENT '文章创建时间',

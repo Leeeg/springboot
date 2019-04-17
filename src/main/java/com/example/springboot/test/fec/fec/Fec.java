@@ -1,4 +1,4 @@
-package com.example.springboot.fec.ex;
+package com.example.springboot.test.fec.fec;
 
 public interface Fec
 {

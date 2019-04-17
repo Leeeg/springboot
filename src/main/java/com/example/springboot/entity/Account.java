@@ -22,6 +22,18 @@ public class Account implements Serializable {
     private String accountName;
 
     /**
+     * 用户PhoneNumber
+     */
+    @Column(name = "account_phone")
+    private String accountPhone;
+
+    /**
+     * 用户Email
+     */
+    @Column(name = "account_email")
+    private String accountEmail;
+
+    /**
      * 用户性别 0表示女
      */
     @Column(name = "account_sex")
@@ -95,6 +107,42 @@ public class Account implements Serializable {
      */
     public void setAccountName(String accountName) {
         this.accountName = accountName == null ? null : accountName.trim();
+    }
+
+    /**
+     * 获取用户PhoneNumber
+     *
+     * @return account_phone - 用户PhoneNumber
+     */
+    public String getAccountPhone() {
+        return accountPhone;
+    }
+
+    /**
+     * 设置用户PhoneNumber
+     *
+     * @param accountPhone 用户PhoneNumber
+     */
+    public void setAccountPhone(String accountPhone) {
+        this.accountPhone = accountPhone == null ? null : accountPhone.trim();
+    }
+
+    /**
+     * 获取用户Email
+     *
+     * @return account_email - 用户Email
+     */
+    public String getAccountEmail() {
+        return accountEmail;
+    }
+
+    /**
+     * 设置用户Email
+     *
+     * @param accountEmail 用户Email
+     */
+    public void setAccountEmail(String accountEmail) {
+        this.accountEmail = accountEmail == null ? null : accountEmail.trim();
     }
 
     /**
@@ -178,6 +226,8 @@ public class Account implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", accountId=").append(accountId);
         sb.append(", accountName=").append(accountName);
+        sb.append(", accountPhone=").append(accountPhone);
+        sb.append(", accountEmail=").append(accountEmail);
         sb.append(", accountSex=").append(accountSex);
         sb.append(", accountCreateTime=").append(accountCreateTime);
         sb.append(", accountLoginTime=").append(accountLoginTime);
