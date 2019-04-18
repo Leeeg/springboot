@@ -1,9 +1,12 @@
 package com.example.springboot.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.springboot.controller.presenter.AccountPresenter;
 import com.example.springboot.dto.Response;
+import com.example.springboot.entity.Account;
 import com.example.springboot.service.AccountService;
 import com.example.springboot.util.CommonUtils;
+import com.example.springboot.util.DateUtils;
 import com.example.springboot.util.ResponseEnum;
 import com.example.springboot.util.VerificationCodeUtil;
 import com.example.springboot.util.response.ResponseUtil;
@@ -45,38 +48,6 @@ public class AccountController extends BaseController implements AccountPresente
     @Autowired
     AccountService accountService;
 
-    @ApiOperation("登陆")
-    @PostMapping("/register")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "phone", value = "手机号", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "code", value = "验证码", required = true, dataType = "String")
-    })
-    @Override
-    public Response register(HttpServletRequest request, String userName, String password, String phone, String code) {
-        HttpSession session = request.getSession();
-        Object sCode = session.getAttribute(phone + "_code");
-        Object time = session.getAttribute(phone + "_time");
-        if (null == sCode || null == time || sCode.toString().isEmpty() || (new Date().getTime() - Long.valueOf(time.toString()) > 60 * 1000)) {//验证码失效 60s
-            return ResponseUtil.error(ResponseEnum.CODE_INVALID);
-        }
-
-        return null;
-    }
-
-    @ApiOperation("登陆")
-    @PostMapping("/login")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String")
-    })
-    @Override
-    public Response login(String userName, String password) {
-
-        return null;
-    }
-
     @ApiOperation("获取验证码")
     @PostMapping("/getCode")
     @ApiImplicitParam(name = "phoneNumber", value = "手机号", required = true, dataType = "String")
@@ -87,6 +58,7 @@ public class AccountController extends BaseController implements AccountPresente
             return ResponseUtil.error(ResponseEnum.PARAMETER_INVALID);
         }
         HttpSession session = request.getSession();
+        logger.info("session : " + session.isNew() + " id = " + session.getId());
         Object time = session.getAttribute(phoneNumber + "_time");
         Long timeNow = new Date().getTime();
         logger.info("time : " + time + "  timeNow : " + timeNow);
@@ -101,9 +73,59 @@ public class AccountController extends BaseController implements AccountPresente
         } else if (0 > result) {
             return ResponseUtil.error(ResponseEnum.SEND_FAILED);
         }
-        session.setAttribute("code", verificationCode);
+        session.setAttribute(phoneNumber + "_code", verificationCode);
         session.setAttribute(phoneNumber + "_time", timeNow);
         return ResponseUtil.success(null);
+    }
+
+    @ApiOperation("注册")
+    @PostMapping("/register")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "phone", value = "手机号", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "code", value = "验证码", required = true, dataType = "String")
+    })
+    @Override
+    public Response register(HttpServletRequest request, String userName, String password, String phone, String code) {
+        logger.info("userName : " + userName + " password = " + password + " phone = " + phone + " code = " + code);
+        HttpSession session = request.getSession();
+        logger.info("session : " + session.isNew() + " id = " + session.getId());
+        Object sCode = session.getAttribute(phone + "_code");
+        Object time = session.getAttribute(phone + "_time");
+        Long timeStamp = new Date().getTime();
+        if (null == sCode || null == time || sCode.toString().isEmpty()
+                || (timeStamp - Long.valueOf(time.toString()) > 3 * 60 * 1000)
+                || !sCode.equals(code)) {//验证码失效 180s
+            if (null != sCode && null != time){
+                logger.info("sCode : " + sCode + " sTime = " + DateUtils.stampToStr(Long.parseLong(time.toString())) + " nTime = " + DateUtils.stampToStr(timeStamp));
+            }
+            return ResponseUtil.error(ResponseEnum.CODE_INVALID);
+        }
+        int result = accountService.register(userName, password, phone);
+        if (0 == result) {
+            return ResponseUtil.error(ResponseEnum.INSERT_FAILED);
+        }
+        session.invalidate();
+        return ResponseUtil.success(null);
+    }
+
+    @ApiOperation("登陆")
+    @PostMapping("/login")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userName", value = "用户名", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String")
+    })
+    @Override
+    public Response login(String userName, String password) {
+        if (null == userName || userName.isEmpty() || null == password || password.isEmpty()) {
+            return ResponseUtil.error(ResponseEnum.PARAMETER_INVALID);
+        }
+        Account account = accountService.login(userName, password);
+        if (null == account) {
+            return ResponseUtil.error(ResponseEnum.USER_NOT_EXIST);
+        }
+        return ResponseUtil.success(account);
     }
 
     public String imageCode(HttpServletRequest request, HttpServletResponse response) throws Exception {

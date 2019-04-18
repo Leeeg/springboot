@@ -21,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import tk.mybatis.mapper.entity.Example;
 
 import java.net.URI;
+import java.util.Date;
 
 import static com.example.springboot.common.Container.SMS_APPCODE;
 import static com.example.springboot.common.Container.SMS_HOST;
@@ -71,11 +72,37 @@ public class AccountServiceImpl extends BaseService<Account> implements AccountS
         return 1;
     }
 
-    private void getWeather() {
+    @Override
+    public Integer register(String userName, String password, String phone) {
+        Date data = new Date();
+        Account account = new Account();
+        account.setAccountId(10001L);
+        account.setAccountEmail("");
+        account.setAcountIcon("");
+        account.setAccountSex(0);
+        account.setAccountCreateTime(data);
+        account.setAccountPhone(phone);
+        account.setAccountName(userName);
+        account.setAccountPassword(password);
+        account.setAccountLoginTime(data);
+        return accountMapper.insert(account);
+    }
+
+    @Override
+    public Account login(String userName, String password) {
+        Example example = new Example(Account.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.orEqualTo("accountName", userName);
+        criteria.orEqualTo("accountPhone", userName);
+        criteria.andEqualTo("accountPassword", password);
+        return accountMapper.selectOneByExample(example);
+    }
+
+    private void getWeather(String city) {
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(
                 "http://v.juhe.cn/weather/index?cityname={cityname}&dtype={dtype}&format={format}&key={key}")
                 .build()
-                .expand("深圳", "json", "1", "f3ad4c0279fbcc4f43ced93812171eaa")
+                .expand(city, "json", "1", "f3ad4c0279fbcc4f43ced93812171eaa")
                 .encode();
         URI uri = uriComponents.toUri();
         ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);

@@ -22,6 +22,12 @@ public class Account implements Serializable {
     private String accountName;
 
     /**
+     * 用户Password
+     */
+    @Column(name = "account_password")
+    private String accountPassword;
+
+    /**
      * 用户PhoneNumber
      */
     @Column(name = "account_phone")
@@ -37,7 +43,7 @@ public class Account implements Serializable {
      * 用户性别 0表示女
      */
     @Column(name = "account_sex")
-    private Boolean accountSex;
+    private Integer accountSex;
 
     /**
      * 用户注册时间
@@ -110,6 +116,24 @@ public class Account implements Serializable {
     }
 
     /**
+     * 获取用户Password
+     *
+     * @return account_password - 用户Password
+     */
+    public String getAccountPassword() {
+        return accountPassword;
+    }
+
+    /**
+     * 设置用户Password
+     *
+     * @param accountPassword 用户Password
+     */
+    public void setAccountPassword(String accountPassword) {
+        this.accountPassword = accountPassword == null ? null : accountPassword.trim();
+    }
+
+    /**
      * 获取用户PhoneNumber
      *
      * @return account_phone - 用户PhoneNumber
@@ -150,7 +174,7 @@ public class Account implements Serializable {
      *
      * @return account_sex - 用户性别 0表示女
      */
-    public Boolean getAccountSex() {
+    public Integer getAccountSex() {
         return accountSex;
     }
 
@@ -159,7 +183,7 @@ public class Account implements Serializable {
      *
      * @param accountSex 用户性别 0表示女
      */
-    public void setAccountSex(Boolean accountSex) {
+    public void setAccountSex(Integer accountSex) {
         this.accountSex = accountSex;
     }
 
@@ -226,6 +250,7 @@ public class Account implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", accountId=").append(accountId);
         sb.append(", accountName=").append(accountName);
+        sb.append(", accountPassword=").append(accountPassword);
         sb.append(", accountPhone=").append(accountPhone);
         sb.append(", accountEmail=").append(accountEmail);
         sb.append(", accountSex=").append(accountSex);

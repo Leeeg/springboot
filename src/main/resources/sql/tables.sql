@@ -174,11 +174,13 @@ CREATE TABLE `v_account` (
   COMMENT '用户Id',
   `account_name`        varchar(20)  NOT NULL
   COMMENT '用户Name',
+  `account_password`        varchar(20)  NOT NULL
+  COMMENT '用户Password',
   `account_phone`       varchar(11)  NOT NULL
   COMMENT '用户PhoneNumber',
   `account_email`       varchar(20)  NOT NULL
   COMMENT '用户Email',
-  `account_sex`         tinyint(1)   NOT NULL DEFAULT '0'
+  `account_sex`         int(2)   NOT NULL DEFAULT '0'
   COMMENT '用户性别 0表示女',
   `account_create_time` datetime     NOT NULL
   COMMENT '用户注册时间',

@@ -1,5 +1,6 @@
 package com.example.springboot.config;
 
+import com.example.springboot.interceptor.AuthenticationInterceptor;
 import com.example.springboot.interceptor.ForeInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,8 +50,15 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurationSupport {
         // excludePathPatterns 用户排除拦截
 //        registry.addInterceptor(new BackInterceptor()).addPathPatterns("/admin/**").excludePathPatterns("/login");
 //        registry.addInterceptor(getForeInterceptor()).addPathPatterns("/**").excludePathPatterns("/login","/admin/**");
+//        registry.addInterceptor(authenticationInterceptor()).addPathPatterns("/**");    // 拦截所有请求，通过判断是否有 @LoginRequired 注解 决定是否需要登录
         super.addInterceptors(registry);
     }
+
+    @Bean
+    public AuthenticationInterceptor authenticationInterceptor() {
+        return new AuthenticationInterceptor();
+    }
+
     /**
      * 以前要访问一个页面需要先创建个Controller控制类，在写方法跳转到页面
      * 在这里配置后就不需要那么麻烦了，直接访问http://localhost:8080/toLogin就跳转到login.html页面了

@@ -1,5 +1,8 @@
 package com.example.springboot.util;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,5 +26,12 @@ public class CommonUtils {
         }
     }
 
+    public static String getToken(String accId, String password) {
+        return JWT.create()
+                .withClaim("accid", accId)
+                .withClaim("generatetime", System.currentTimeMillis())
+                .withClaim("exptime", 1 * 24 * 60 * 60 * 1000) //1天失效
+                .sign(Algorithm.HMAC256(password));// 以 password 作为 token 的密钥;
+    }
 
 }

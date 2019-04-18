@@ -1,5 +1,7 @@
 package com.example.springboot.service;
 
+import com.example.springboot.entity.Account;
+
 /**
  * @Create by lee
  * @emil JefferyLeeeg@gmail.com
@@ -10,4 +12,7 @@ public interface AccountService {
 
     Integer getCode(String phoneNumber, String code);
 
+    Integer register(String userName, String password, String phone);
+
+    Account login(String userName, String password);
 }
